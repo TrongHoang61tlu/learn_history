@@ -16,7 +16,6 @@ import {
   DetaiItem,
   Item,
   Main,
-  MainImg,
   MainLeft,
   MainRight,
   SliceComment,
@@ -25,7 +24,6 @@ import {
   Wrapper,
   GridContainer,
   GridItem,
-  MainLeftOverlay,
   MainItem,
   ItemImg,
   ItemContent,
@@ -34,16 +32,16 @@ import {
   ItemContentNext,
 } from "./style";
 
+const settings = {
+  dots: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  speed: 2000,
+  autoplaySpeed: 5000,
+  arrows: true,
+};
 function Home() {
-  const settings = {
-    dots: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    speed: 2000,
-    autoplaySpeed: 5000,
-    arrows: true,
-  };
   return (
     <Wrapper>
       <Banner>
@@ -96,8 +94,7 @@ function Home() {
       
       <Main>
         <MainLeft>
-          <MainImg src="image/hochiminh.png" />
-          <MainLeftOverlay />
+          {/* <MainImg src="image/hochiminh.png" /> */}
         </MainLeft>
         <MainRight>
         <TitleComment>Tin tức nổi bật</TitleComment>

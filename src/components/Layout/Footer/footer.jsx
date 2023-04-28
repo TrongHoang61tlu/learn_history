@@ -60,7 +60,7 @@ function Footer() {
           <MenuLink>Contact</MenuLink>
         </SocialMenuItem>
       </SocialMenu>
-      <Text>&copy;2021 Nadine Coelho | All Rights Reserved</Text>
+      <Text> Dai hoc Thuy Loi</Text>
     </FooterContainer>
   );
 }

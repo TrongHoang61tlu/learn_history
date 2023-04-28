@@ -1,13 +1,16 @@
 import React, { Suspense } from "react";
-import "./App.css";
-import Loading from "./components/Loadding/loading";
-import Header from "./components/Layout/Header/header";
+import Modal from "react-modal";
 import { Route, Routes } from "react-router-dom";
+import "./App.css";
 import Footer from "./components/Layout/Footer/footer";
+import Header from "./components/Layout/Header/header";
+import Loading from "./components/Loadding/loading";
 const Home = React.lazy(() => import("./pages/Home/home"));
 const Contact = React.lazy(() => import("./pages/Contact/contact"));
 const About = React.lazy(() => import("./pages/About/about"));
 const Courses = React.lazy(() => import("./pages/Courses/courses"));
+
+Modal.setAppElement("#root"); // hoặc thay #root bằng phần tử chứa ứng dụng của bạn
 
 function App() {
   return (
@@ -19,7 +22,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </Suspense>
   );
 }

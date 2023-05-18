@@ -52,14 +52,16 @@ export const Text = styled.h1`
 `;
 
 export const SestionTwo = styled.section`
-  background-color: #a435f0;
+  background-color: #0077c2;
   padding: 12px;
   font-size: 20px;
   text-align: center;
   font-weight: 400;
 `;
 
-export const SestionTwoText = styled.a``;
+export const SestionTwoText = styled.a`
+  color: #fff;
+`;
 
 export const SestionThree = styled.section`
   padding-top: 60px;

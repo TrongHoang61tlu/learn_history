@@ -3,7 +3,7 @@ body {
   font-family: Inter,Helvetica Neue,Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(to bottom, #0077C2, #ffffff);
+  /* background-image: linear-gradient(to bottom, #0077C2, #ffffff); */
 
 }
 

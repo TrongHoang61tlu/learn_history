@@ -12,6 +12,13 @@ import {
   Waves,
 } from "./style";
 
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+} from "react-icons/fa";
+
 function Footer() {
   return (
     <FooterContainer>
@@ -24,22 +31,22 @@ function Footer() {
       <SocialMenu>
         <SocialMenuItem>
           <SocialLink>
-            <ion-icon name="logo-facebook"></ion-icon>
+            <FaFacebook />
           </SocialLink>
         </SocialMenuItem>
         <SocialMenuItem>
           <SocialLink>
-            <ion-icon name="logo-twitter"></ion-icon>
+            <FaTwitter />
           </SocialLink>
         </SocialMenuItem>
         <SocialMenuItem>
           <SocialLink>
-            <ion-icon name="logo-linkedin"></ion-icon>
+            <FaLinkedin />
           </SocialLink>
         </SocialMenuItem>
         <SocialMenuItem>
           <SocialLink>
-            <ion-icon name="logo-instagram"></ion-icon>
+            <FaInstagram />
           </SocialLink>
         </SocialMenuItem>
       </SocialMenu>

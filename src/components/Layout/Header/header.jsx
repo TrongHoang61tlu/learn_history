@@ -12,6 +12,9 @@ import {
   Search,
   Wrapper,
 } from "./style";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const List = {
   0: { label: "Trang Chủ", link: "/" },
@@ -21,12 +24,14 @@ const List = {
 };
 
 function Header() {
-  // const [isActive, setIsActive] = useState(false);
   const [activeItem, setActiveItem] = useState("0");
+  const isLogin = useSelector((state) => state.auth.isLogin);
+  const dispatch = useDispatch()
+  const redirectHome = useNavigate();
+  const handleLogout = () => {
+    dispatch(logout( () => redirectHome("/") ))
+  }
 
-  // const handleToggle = () => {
-  //   setIsActive((isActive) => !isActive);
-  // };
   const handleItemClick = (key) => {
     setActiveItem(key);
   };
@@ -50,10 +55,16 @@ function Header() {
           <Input placeholder="Tìm kiếm"></Input>
           <Button>Tìm kiếm</Button>
         </Search>
-        
+
         <Authen>
-          <Login>Đăng nhập</Login>
-          <Register>Đăng ký</Register>
+          {isLogin ? (
+              <Register onClick={handleLogout}>Đăng xuất</Register>
+          ) : (
+            <>
+              <Link to="/login"><Login>Đăng nhập</Login> </Link> 
+              <Link to="signup"><Register>Đăng ký</Register></Link>
+            </>
+          )}
         </Authen>
       </Bottom>
     </Wrapper>

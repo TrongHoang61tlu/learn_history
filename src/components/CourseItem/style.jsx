@@ -1,5 +1,11 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+
+export const CourseLink = styled(Link)`
+  text-decoration : none;
+  color : #000;
+`
 export const Container = styled.div`
   background-color: #fff;
   box-shadow: 0 0.0625rem 0.125rem #00000026, 0 0.0625rem 0.25rem #00000026;
@@ -8,6 +14,7 @@ export const Container = styled.div`
   width: 100%;
   border-radius: 0.375rem;
   margin-top: 20px;
+  text-decoration: none;
   cursor: pointer;
 `;
 
@@ -17,7 +24,7 @@ export const Top = styled.div`
 `;
 
 export const TopImg = styled.img`
-  height: 104px;
+  height: 124px;
   object-fit: cover;
   object-position: top center;
   border-top-left-radius: 0.3125rem;

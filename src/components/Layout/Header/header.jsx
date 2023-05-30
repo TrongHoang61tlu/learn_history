@@ -26,6 +26,7 @@ const List = {
 function Header() {
   const [activeItem, setActiveItem] = useState("0");
   const isLogin = useSelector((state) => state.auth.isLogin);
+  const name = localStorage.getItem("name");
   const dispatch = useDispatch()
   const redirectHome = useNavigate();
   const handleLogout = () => {
@@ -58,7 +59,10 @@ function Header() {
 
         <Authen>
           {isLogin ? (
+              <>
+              <p>Xin chào, {name}</p>
               <Register onClick={handleLogout}>Đăng xuất</Register>
+              </>
           ) : (
             <>
               <Link to="/login"><Login>Đăng nhập</Login> </Link> 

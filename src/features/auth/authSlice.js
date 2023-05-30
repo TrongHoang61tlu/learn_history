@@ -33,6 +33,7 @@ const removeAccessTokenFromLocalStorage = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("name");
   localStorage.removeItem("roleId");
+  localStorage.removeItem("email");
 };
 
 export const login = createAsyncThunk(
@@ -51,6 +52,7 @@ export const login = createAsyncThunk(
         saveAccessTokenToLocalStorage(response.data.user.token);
         localStorage.setItem("roleId", response.data.user.roleId);
         localStorage.setItem("name", response.data.user.firstName );
+        localStorage.setItem("email", response.data.user.email );
         callback(response.data.user.roleId);
         return {
           user: response.data,
@@ -104,7 +106,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.isLogin = false;
         state.roleId = null;
-        state.errorMessage = "Mời nhâp lại"; // Lưu trữ thông báo lỗi
+        state.errorMessage = "Tài khoản hoặc mật khẩu không chính xác"; // Lưu trữ thông báo lỗi
       })
       // logout
 

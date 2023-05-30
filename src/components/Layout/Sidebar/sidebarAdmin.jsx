@@ -18,6 +18,8 @@ import {
 
 function SidebarAdmin() {
   const [isActive, setIsActive] = useState(0);
+  const email = localStorage.getItem('email');
+  const name = localStorage.getItem('name');
 
   const handleItemClick = (index) => {
     setIsActive(index);
@@ -47,13 +49,13 @@ function SidebarAdmin() {
       <Pages>
         <PageTitle>Pages</PageTitle>
         <PageList>
-          <PageItem to="/admin/coursemanager"
+          <PageItem to="/admin/usermanager"
             isActive={isActive === 0}
             onClick={() => handleItemClick(0)}
           >
             <Text>Quản lý người dùng</Text>
           </PageItem>
-          <PageItem to="/admin/usermanager"
+          <PageItem to="/admin/coursemanager"
             isActive={isActive === 1}
             onClick={() => handleItemClick(1)}
           >
@@ -72,8 +74,8 @@ function SidebarAdmin() {
         <MainInfo>
           <Avatar src="image/hungvuong.png" />
           <Form>
-            <Email>tronghoang19112001@gmail.com</Email>
-            <Name>Hoàng</Name>
+            <Email>{email}</Email>
+            <Name>{name}</Name>
           </Form>
         </MainInfo>
       </Infomation>

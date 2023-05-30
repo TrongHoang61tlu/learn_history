@@ -42,7 +42,7 @@ function App() {
     <Suspense fallback={<Loading />}>
       {isLoginPage ? null : (
         <div>
-          <header>{isAdminAuth ? null : <Header />}</header>
+          <header>{isAdminAuth ? <HeaderAdmin/> : <Header />}</header>
           <div>{isAdminAuth ? <SidebarAdmin /> : null}</div>
         </div>
       )}

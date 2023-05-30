@@ -1,9 +1,20 @@
-import { WrapperHeader } from "./styleAdmin";
+import { FaSignOutAlt } from "react-icons/fa";
+import { Logout, WrapperHeader } from "./styleAdmin";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 function HeaderAdmin() {
+    const dispatch = useDispatch()
+    const redirectHome = useNavigate();
+    const handleLogout = () => {
+        dispatch(logout( () => redirectHome("/") ))
+      }
     return (  
        <WrapperHeader>
-        jaskda
+            <Logout>
+                <FaSignOutAlt onClick={handleLogout}/>
+            </Logout>
        </WrapperHeader>
     );
 }

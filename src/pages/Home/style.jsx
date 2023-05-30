@@ -87,6 +87,7 @@ export const SliceComment = styled.div`
   width: 90%;
   margin: auto;
   padding-top: 100px;
+  margin-bottom: 200px;
 `;
 export const TitleComment = styled.h2`
   display: flex;
@@ -111,28 +112,29 @@ export const CommentFeel = styled.span`
 `;
 
 export const Main = styled.div`
-  width: 90%;
+  backgroud-color: white;
+  width: 85%;
   margin: auto;
   display: flex;
   border-radius: 15px;
   justify-content: space-between;
   align-items: center;
-  padding-top : 100px;
+  padding-top: 100px;
   @media (max-width: 768px) {
     display: block;
   }
 `;
 export const MainLeft = styled.div`
-  width: 25%;
+  width: 35%;
   position: relative;
   overflow: hidden;
   transition: transform 0.8s ease-in-out;
+  transform: rotateY(180deg) translate3d(0, 0, 0);
   border-radius: 15px;
   @media (max-width: 768px) {
     width: 100%;
   }
   &:hover {
-    transform: rotateY(180deg) translate3d(0, 0, 0);
   }
 `;
 
@@ -149,7 +151,7 @@ export const MainImg = styled.img`
 `;
 
 export const MainRight = styled.div`
-  width: 70%;
+  width: 60%;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -172,8 +174,7 @@ export const GridItem = styled.div`
   padding: 10px;
   border-radius: 15px;
   cursor: pointer;
-  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
-    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 `;
 
 export const MainItem = styled.div`

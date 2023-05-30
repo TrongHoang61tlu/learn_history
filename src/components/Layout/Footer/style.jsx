@@ -10,7 +10,6 @@ export const FooterContainer = styled.footer`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 200px;
 `;
 
 export const Waves = styled.div`

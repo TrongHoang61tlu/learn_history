@@ -163,6 +163,7 @@ export const Login = styled.button`
 `
 
 export const Register = styled.button`
+  padding: 10px 15px;
   background-color: #ffa500;
   color: white;
   font-size: 16px;

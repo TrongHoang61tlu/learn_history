@@ -1,23 +1,49 @@
 import styled from "styled-components";
 
-
 export const ModalTitle = styled.h2`
-  color: red;
-  margin: 0;
-  padding: 10px;
+  margin: 0px;
+  font-size: 15px;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-weight: 500;
+  line-height: 1.6;
+  flex: 0 0 auto;
+  padding: 27px;
 `;
 
 export const ModalForm = styled.form`
-  padding: 0 30px;
-  height: 80vh;
+  border-top: 1px solid #ccc;
+`;
+
+export const ModalControler = styled.div`
+  display: flex;
+  width: 100%;
+  padding-bottom: 40px;
+`;
+
+export const ModalLeft = styled.div`
+  padding-left: 27px;
+  flex-basis: 58.3333%;
+  flex-grow: 0;
+  max-width: 58.3333%;
+  padding-top: 27px;
+`;
+export const ModalRight = styled.div`
+  padding-left: 60px;
+  padding-top: 27px;
+  lex-basis: 41.6667%;
+  -webkit-box-flex: 0;
+  flex-grow: 0;
+  max-width: 41.6667%;
 `;
 
 export const ModalContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  position: relative;
-  padding: 5px;
+  flex-basis: 100%;
+  -webkit-box-flex: 0;
+  flex-grow: 0;
+  max-width: 100%;
+  padding-top: 27px;
+  padding-left: 27px;
 `;
 
 export const ModalLabel = styled.label`
@@ -27,47 +53,57 @@ export const ModalLabel = styled.label`
 `;
 
 export const ModalInput = styled.input`
-font: inherit;
-border: 1px solid #ccc;
-box-sizing: content-box;
-background: none;
-height: 1.4375em;
-margin: 0px;
-display: block;
-min-width: 0px;
-width: 100%;
-padding: 12.5px 14px;
-border-radius: 3px;
+  font: inherit;
+  border: 1px solid #ccc;
+  box-sizing: content-box;
+  background: none;
+  height: 1.4375em;
+  margin: 0px;
+  display: block;
+  min-width: 0px;
+  width: 100%;
+  padding: 12.5px 14px;
+  border-radius: 3px;
+`;
+
+export const ControlerButton = styled.div`
+  display: flex;
+  margin-top: 30px;
+  align-items: center;
+  border-top: 1px solid #ccc;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+  padding: 15px;
 `;
 
 export const ModalButtonAccept = styled.button`
-display: inline-flex;
-align-items: center;
-justify-content: center;
-position: relative;
-box-sizing: border-box;
-outline: 0px;
-border: 0px;
-margin: 0px;
-cursor: pointer;
-user-select: none;
-vertical-align: middle;
-appearance: none;
-text-decoration: none;
-font-size: 0.875rem;
-line-height: 1.75;
-min-width: 64px;
-border-radius: 10px;
-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-  box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-  border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-  color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-color: rgb(255, 255, 255);
-background-color: rgb(85, 105, 255);
-box-shadow: none;
-font-weight: bold;
-text-transform: none;
-padding: 8px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  outline: 0px;
+  border: 0px;
+  margin: 0px;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  text-decoration: none;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  min-width: 64px;
+  border-radius: 10px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  color: rgb(255, 255, 255);
+  background-color: rgb(85, 105, 255);
+  box-shadow: none;
+  font-weight: bold;
+  text-transform: none;
+  padding: 8px 20px;
 `;
 
 export const ModalSelect = styled.select`
@@ -118,37 +154,6 @@ export const ModalOption = styled.option`
     font-weight: 100;
     font-size: 1rem;
   }
-`;
-
-export const ControlerButton = styled.div`
-  display: flex;
-  margin-top: 30px;
-  align-items: center;
-  border-top: 1px solid #ccc;
-  justify-content: flex-end;
-  flex: 0 0 auto;
-  padding: 15px;
-`;
-
-export const ModalControler = styled.div`
-  display: flex;
-`;
-
-export const ModalLeft = styled.div`
-  padding-left: 27px;
-  flex-basis: 58.3333%;
-  flex-grow: 0;
-  max-width: 58.3333%;
-  padding-top: 27px;
-`;
-
-export const ModalRight = styled.div`
-  padding-left: 60px;
-  padding-top: 27px;
-  lex-basis: 41.6667%;
-  -webkit-box-flex: 0;
-  flex-grow: 0;
-  max-width: 41.6667%;
 `;
 
 export const ModalAvatar = styled.div`

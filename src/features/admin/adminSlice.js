@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { toast } from "react-toastify";
 import {
+  createNewUser,
   deleteUser,
   getAllUsers,
   updateUser,
@@ -23,30 +23,8 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
 export const addUser = createAsyncThunk(
   "users/addUser",
   async (data, { rejectWithValue }) => {
-    const {
-      email,
-      password,
-      firstName,
-      lastName,
-      phonenumber,
-      address,
-      gender,
-      roleId,
-    } = data;
     try {
-      const response = await axios.post(
-        "http://localhost:8081/api/create-new-user",
-        {
-          email,
-          password,
-          firstName,
-          lastName,
-          phonenumber,
-          address,
-          gender,
-          roleId,
-        }
-      );
+      const response = await createNewUser(data);
       toast.success(response?.data.message);
       return response.data;
     } catch (e) {
@@ -75,11 +53,7 @@ export const updateUsers = createAsyncThunk(
   "users/updateUser",
   async ({ userId, userData }, { rejectWithValue }) => {
     try {
-      const response = await updateUser(
-        userId,
-        userData
-      );
-      console.log(response);
+      const response = await updateUser(userId, userData);
       return response.data;
     } catch (error) {
       return rejectWithValue({ error: error.response.data });

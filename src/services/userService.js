@@ -12,6 +12,12 @@ export const deleteUser = (userId) => {
   });
 };
 
+export const createNewUser = (userData) => {
+  return axios.post(`http://localhost:8081/api/create-new-user`, {
+    ...userData,
+  });
+};
+
 export const updateUser = (userId, userData) => {
   return axios.put(`http://localhost:8081/api/edit-user`, {
     id: userId,

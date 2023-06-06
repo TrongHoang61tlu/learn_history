@@ -20,6 +20,7 @@ function SidebarAdmin() {
   const [isActive, setIsActive] = useState(0);
   const email = localStorage.getItem('email');
   const name = localStorage.getItem('name');
+  const avatar = localStorage.getItem('avatar');
 
   const handleItemClick = (index) => {
     setIsActive(index);
@@ -72,7 +73,7 @@ function SidebarAdmin() {
       </Pages>
       <Infomation>
         <MainInfo>
-          <Avatar src="image/hungvuong.png" />
+          <Avatar src={avatar} />
           <Form>
             <Email>{email}</Email>
             <Name>{name}</Name>

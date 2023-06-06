@@ -59,7 +59,6 @@ function Login() {
   };
 
   const onSubmitHandler = (data) => {
-    console.log(data);
     dispatch(clearErrorMessage());
     setIsRedirecting(false);
     dispatch(login({ data, callback: handleRoleRedirect }));

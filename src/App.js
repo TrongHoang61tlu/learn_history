@@ -7,7 +7,7 @@ import Header from "./components/Layout/Header/header";
 import Loading from "./components/Loadding/loading";
 import Login from "./features/auth/Login/loginPage";
 import SignUp from "./features/auth/Register/registerPage";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { checkToken } from "./features/auth/authSlice";
 import { PrivateRoutes, PrivateLogin } from "./components/privateRouter";
 import Admin from "./features/admin/adminPage";
@@ -29,7 +29,6 @@ function App() {
   const dispatch = useDispatch();
   let location = useLocation();
   const isAdminAuth = localStorage.getItem("roleId") === "1";
-  console.log(isAdminAuth);
   const isUserAuth = localStorage.getItem("token") === 2;
 
   useEffect(() => {

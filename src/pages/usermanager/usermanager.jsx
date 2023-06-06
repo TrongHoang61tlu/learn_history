@@ -2,9 +2,20 @@ import React, { useEffect, useState } from "react";
 import { FaEdit, FaEye, FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUsers, fetchUsers } from "../../features/admin/adminSlice";
-import { ButtonAdd, ButtonDelete, ButtonUpdate, ButtonView, Table, TableData, TableHeader, TableRow, Title, Wrapper } from "./style";
 import ModalAddUser from "../../features/admin/component/modal/modalAddUser";
 import ModalUpdateUser from "../../features/admin/component/modal/modalEditUser";
+import {
+  ButtonAdd,
+  ButtonDelete,
+  ButtonUpdate,
+  ButtonView,
+  Table,
+  TableData,
+  TableHeader,
+  TableRow,
+  Title,
+  Wrapper,
+} from "./style";
 
 function UserManager() {
   const [modalAddIsOpen, setModalAddIsOpen] = useState(false);
@@ -30,7 +41,12 @@ function UserManager() {
   };
 
   const handleDeleteUser = (userId) => {
-    dispatch(deleteUsers(userId));
+    const result = window.confirm(
+      "Bạn có chắc chắn muốn xóa người dùng này không"
+    );
+    if (result) {
+      dispatch(deleteUsers(userId));
+    }
   };
 
   useEffect(() => {
@@ -72,7 +88,6 @@ function UserManager() {
                 >
                   <FaEdit color="blue" />
                 </ButtonUpdate>
-
                 <ButtonDelete onClick={() => handleDeleteUser(user.id)}>
                   <FaTrashAlt color="red" />
                 </ButtonDelete>
@@ -82,10 +97,13 @@ function UserManager() {
         </tbody>
       </Table>
       <ModalAddUser isOpen={modalAddIsOpen} onRequestClose={closeModalAdd} />
-      <ModalUpdateUser isOpen={modalUpdateIsOpen} onRequestClose={closeModalUpdate} selectedUser = {selectedUser} />
+      <ModalUpdateUser
+        isOpen={modalUpdateIsOpen}
+        onRequestClose={closeModalUpdate}
+        selectedUser={selectedUser}
+      />
     </Wrapper>
   );
 }
 
 export default UserManager;
-

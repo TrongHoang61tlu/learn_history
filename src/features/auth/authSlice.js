@@ -48,11 +48,11 @@ export const login = createAsyncThunk(
       if (response.data && response.data.errCode !== 0) {
         throw new Error(response.data.message);
       } else if (response.data && response.data.errCode === 0) {
-        console.log(response.data.user);
         saveAccessTokenToLocalStorage(response.data.user.token);
         localStorage.setItem("roleId", response.data.user.roleId);
         localStorage.setItem("name", response.data.user.firstName );
         localStorage.setItem("email", response.data.user.email );
+        localStorage.setItem("avatar", response.data.user.image );
         callback(response.data.user.roleId);
         return {
           user: response.data,

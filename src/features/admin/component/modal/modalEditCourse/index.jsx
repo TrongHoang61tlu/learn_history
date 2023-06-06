@@ -1,10 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
-import {  fetchUsers, updateUsers } from "../../../adminSlice";
 import {
   ControlerButton,
   ModLabel,
@@ -21,40 +20,43 @@ import {
   ModalRight,
   ModalTitle,
 } from "./style";
+
 import { toast } from "react-toastify";
+import {  EditCourse, fetchCourses } from "../../../courseSlice";
 import { FaUpload } from "react-icons/fa";
 import axios from "axios";
-import { useEffect } from "react";
 
 const customStyles = {
   content: {
     top: "50%",
     left: "50%",
     width: "70%",
+    height : "80vh",
+    overfolow: "scroll",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     padding: 0,
   },
-  overlay: { zIndex: 9999, backgroundColor: "rgba(0, 7, 52, 0.2)" },
+  overlay: {
+    zIndex: 9999,
+    backgroundColor: "rgba(0, 7, 52, 0.2)",
+  },
 };
 
 const schema = yup.object().shape({
-  firstName: yup.string(),
-  lastName: yup.string(),
-  image: yup.string(),
-  phonenumber: yup.string(),
-  address: yup.string(),
-
+  title: yup.string(),
+  imageUrl: yup.string(),
+  description: yup.string(),
 });
 
 // Modal.setAppElement("#root");
 
-const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) => {
+const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCourse }) => {
   const dispatch = useDispatch();
-  const [modalAdd, setModalAdd] = useState(false);
-  const [formValues, setFormValues] = useState(selectedUser || {});
+  const [modalEdit, setModalEdit] = useState(false);
+  const [formValues, setFormValues] = useState(selectedCourse || {});
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -66,19 +68,18 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
     resolver: yupResolver(schema),
   });
   function closeModal() {
-    setModalAdd(false);
+    setModalEdit(false);
   }
-
-  const handleUpdateUser = async (data, userId) => {
-    const updatedData = { ...data, image: formValues.image };
-    console.log(updatedData);
+  
+  const handleUpdateCourse = async (data, courseId) => {
+    const updatedData = { ...data, imageUrl: formValues.imageUrl };
     try {
-      const response = await dispatch(updateUsers({ userId, userData: updatedData }));
+      const response = await dispatch(EditCourse({ courseId, courseData: updatedData }));
       if (response.error) {
         toast.error("Cập nhật khóa học thất bại!");
       } else {
         toast.success("Cập nhật khóa học thành công!");
-        dispatch(fetchUsers());
+        dispatch(fetchCourses());
         onRequestClose();
       }
     } catch (error) {
@@ -87,7 +88,7 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
     reset();
   };
 
-  
+
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
@@ -106,7 +107,7 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
       const imageCloudUrl = response.data.secure_url;
       setFormValues((prevFormValues) => ({
         ...prevFormValues,
-        image: imageCloudUrl,
+        imageUrl: imageCloudUrl,
       }));
     } catch (error) {
       console.log("Lỗi khi upload ảnh", error);
@@ -124,11 +125,12 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
   };
 
   useEffect(() => {
-    if (selectedUser) {
-      setFormValues(selectedUser);
+    if (selectedCourse) {
+      setFormValues(selectedCourse);
+      setValue("title", selectedCourse.title);
+      setValue("description", selectedCourse.description);
     }
-  }, [selectedUser]);
-
+  }, [selectedCourse]);
   return (
     <Modal
       isOpen={isOpen}
@@ -137,53 +139,39 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
       style={customStyles}
       contentLabel="Example Modal"
     >
-      <ModalTitle>Thêm mới người dùng</ModalTitle>
-      <ModalForm onSubmit={handleSubmit((data) => handleUpdateUser(data, formValues.id) )}>
+      <ModalTitle>Thêm mới cập nhật</ModalTitle>
+      <ModalForm onSubmit={handleSubmit((data) => handleUpdateCourse(data, formValues.id ) )}>
         <ModalControler>
           <ModalLeft>
             <ModalContent>
-              <ModalLabel>Tên</ModalLabel>
-              <ModalInput {...register("firstName")} 
-              value={formValues.firstName || ""}
+              <ModalLabel>Tiêu đề</ModalLabel>
+              <ModalInput {...register("title")} type="text"
+              value={formValues?.title || ""}
+              onChange={handleChange}
+              />
+            </ModalContent>
+            <ModalContent>
+              <ModalLabel>Mô tả</ModalLabel>
+              <ModalInput {...register("description")} 
+                value={formValues?.description || ""}
                 onChange={handleChange}
-             />
-            </ModalContent>
-            <ModalContent>
-              <ModalLabel>Họ</ModalLabel>
-              <ModalInput {...register("lastName")}
-               value={formValues.lastName || ""}
-               onChange={handleChange}
-              />
-            </ModalContent>
-            <ModalContent>
-              <ModalLabel>Số điện thoại</ModalLabel>
-              <ModalInput {...register("phonenumber")}
-               value={formValues.phonenumber || ""}
-               onChange={handleChange}
-              />
-            </ModalContent>
-            <ModalContent>
-              <ModalLabel>Địa chỉ</ModalLabel>
-              <ModalInput {...register("address")}
-               value={formValues.address || ""}
-               onChange={handleChange}
-              />
+               />
             </ModalContent>
           </ModalLeft>
           <ModalRight>
-          <ModalContent>
+            <ModalContent>
               <ModalLabel>Ảnh mô tả</ModalLabel>
               <ModalAvatar>
-                <ModalImage src={formValues?.image || ""}  alt="" />
+               <ModalImage src={formValues?.imageUrl || ""} alt="" />
                 <ModalAddAvatar>
                   <ModalInput
-                    style={{ display: "none" }}
+                    style={{display: "none"}}
                     name="add-image"
                     id="add-image"
-                    {...register("image")}
-                    type="file"
+                    {...register("imageUrl")}
                     onChange={handleImageUpload}
-                    required
+                    type="file"
+                  
                   />
                   <ModLabel htmlFor="add-image">
                     {" "}
@@ -195,11 +183,11 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
           </ModalRight>
         </ModalControler>
         <ControlerButton>
-          <ModalButtonAccept type="submit">Thêm mới</ModalButtonAccept>
+          <ModalButtonAccept type="submit">Cập nhật</ModalButtonAccept>
         </ControlerButton>
       </ModalForm>
     </Modal>
   );
 };
 
-export default ModalAddUser;
+export default ModalEditCourse;

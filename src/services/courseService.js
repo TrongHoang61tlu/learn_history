@@ -4,6 +4,10 @@ export const getAllCourse = (inputId) => {
   return axios.get(`http://localhost:8081/api/courses?id=${inputId}`);
 };
 
+export const getAllCourseByUser = () => {
+  return axios.get(`http://localhost:8081/api/get-detail-course-by-id`);
+};
+
 export const deleteCourse = (courseId) => {
   return axios.delete(`http://localhost:8081/api/delete-course`, {
     data: {

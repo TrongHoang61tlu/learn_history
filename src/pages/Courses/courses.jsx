@@ -26,8 +26,10 @@ import {
   Title,
   Wrapper,
 } from "./style";
+import { useSelector } from "react-redux";
 
 function Courses() {
+  const coursesData = useSelector((state) => state.coursebyuser.courses);
   return (
     <Wrapper>
       <Banner>
@@ -170,12 +172,9 @@ function Courses() {
           </Category>
 
           <ListCourses>
-            <CouresItem />
-            <CouresItem />
-            <CouresItem />
-            <CouresItem />
-            <CouresItem />
-            <CouresItem />
+            {coursesData.map((course, index) => (
+              <CouresItem key={course.id} course={course} courseContent = {course.CourseContents} />
+            ))}
           </ListCourses>
         </CourseContainer>
       </Course>

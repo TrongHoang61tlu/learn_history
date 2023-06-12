@@ -63,11 +63,23 @@ function SidebarAdmin() {
             <Text>Quản lý khóa học</Text>
           </PageItem>
 
-          <PageItem to="/admin/lesonmanager"
+          <PageItem to="/admin/coursecontentmanager"
             isActive={isActive === 2}
             onClick={() => handleItemClick(2)}
           >
             <Text>Quản lý bài học</Text>
+          </PageItem>
+          <PageItem to="/admin/newsmanager"
+            isActive={isActive === 3}
+            onClick={() => handleItemClick(3)}
+          >
+            <Text>Quản lý tin tức </Text>
+          </PageItem>
+          <PageItem to="/admin/videomanager"
+            isActive={isActive === 4}
+            onClick={() => handleItemClick(4)}
+          >
+            <Text>Quản lý video bài học </Text>
           </PageItem>
         </PageList>
       </Pages>

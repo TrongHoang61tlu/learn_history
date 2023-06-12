@@ -5,18 +5,22 @@ import "./App.css";
 import Footer from "./components/Layout/Footer/footer";
 import Header from "./components/Layout/Header/header";
 import Loading from "./components/Loadding/loading";
-import Login from "./features/auth/Login/loginPage";
-import SignUp from "./features/auth/Register/registerPage";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { checkToken } from "./features/auth/authSlice";
 import { PrivateRoutes, PrivateLogin } from "./components/privateRouter";
-import Admin from "./features/admin/adminPage";
+import { fetchCoursesByUser } from "./features/course/courseByUserSlice";
 import SidebarAdmin from "./components/Layout/Sidebar/sidebarAdmin";
 import HeaderAdmin from "./components/Layout/Header/headerAdmin";
-import Coursemanager from "./pages/coursemanager/coursemanager";
-import UserManager from "./pages/usermanager/usermanager";
-import LesonManager from "./pages/Lesonmanager/lesonmanager";
-import Notfound from "./pages/Notfound/notfound";
+const Login = React.lazy(() => import("./features/auth/Login/loginPage"));
+const SignUp = React.lazy(() => import("./features/auth/Register/registerPage"))
+const Admin = React.lazy(() => import( "./features/admin/adminPage"));
+const Coursemanager = React.lazy(() => import("./pages/coursemanager/coursemanager"));
+const UserManager = React.lazy(() => import("./pages/usermanager/usermanager"));
+const LesonManager = React.lazy(() => import("./pages/Lesonmanager/lesonmanager"));
+const Notfound = React.lazy(() => import("./pages/Notfound/notfound"));
+const NewsManager = React.lazy(() => import("./pages/newsmanager/newmanager"));
+const CourseContent = React.lazy(() => import("./pages/courseContentmanager"));
+const Videomanager = React.lazy(() =>import("./pages/videomanager/videomanager"));
 const Home = React.lazy(() => import("./pages/Home/home"));
 const Contact = React.lazy(() => import("./pages/Contact/contact"));
 const About = React.lazy(() => import("./pages/About/about"));
@@ -32,6 +36,10 @@ function App() {
   const isUserAuth = localStorage.getItem("token") === 2;
 
   useEffect(() => {
+    dispatch(fetchCoursesByUser());
+  }, []);
+
+  useEffect(() => {
     dispatch(checkToken());
   }, []);
 
@@ -41,7 +49,7 @@ function App() {
     <Suspense fallback={<Loading />}>
       {isLoginPage ? null : (
         <div>
-          <header>{isAdminAuth ? <HeaderAdmin/> : <Header />}</header>
+          <header>{isAdminAuth ? <HeaderAdmin /> : <Header />}</header>
           <div>{isAdminAuth ? <SidebarAdmin /> : null}</div>
         </div>
       )}
@@ -59,7 +67,7 @@ function App() {
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="*" element={<Notfound />} />
         <Route exact element={<PrivateRoutes />}>
-          <Route exact path="course/treemap" element={<CourseMap />} />
+          <Route exact path="course/treemap/:id" element={<CourseMap />} />
         </Route>
         <Route exact element={<PrivateRoutes />}>
           <Route exact path="admin/coursemanager" element={<Coursemanager />} />
@@ -69,6 +77,19 @@ function App() {
         </Route>
         <Route exact element={<PrivateRoutes />}>
           <Route exact path="admin/lesonmanager" element={<LesonManager />} />
+        </Route>
+        <Route exact element={<PrivateRoutes />}>
+          <Route exact path="admin/newsmanager" element={<NewsManager />} />
+        </Route>
+        <Route exact element={<PrivateRoutes />}>
+          <Route
+            exact
+            path="admin/coursecontentmanager"
+            element={<CourseContent />}
+          />
+        </Route>
+        <Route exact element={<PrivateRoutes />}>
+          <Route exact path="admin/videomanager" element={<Videomanager />} />
         </Route>
       </Routes>
       {isLoginPage ? null : <footer>{isAdminAuth ? null : <Footer />}</footer>}

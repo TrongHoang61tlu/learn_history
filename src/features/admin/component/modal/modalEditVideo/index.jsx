@@ -25,6 +25,7 @@ import { toast } from "react-toastify";
 import {  EditCourse, fetchCourses } from "../../../courseSlice";
 import { FaUpload } from "react-icons/fa";
 import axios from "axios";
+import { EditVideo, fetchVideo } from "../../../videoSlice";
 
 const customStyles = {
   content: {
@@ -47,16 +48,15 @@ const customStyles = {
 
 const schema = yup.object().shape({
   title: yup.string(),
-  imageUrl: yup.string(),
   description: yup.string(),
 });
 
 // Modal.setAppElement("#root");
 
-const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCourse }) => {
+const ModalEditVideo = ({ isOpen, onRequestClose, onSubmitHandler, selectedVideo }) => {
   const dispatch = useDispatch();
   const [modalEdit, setModalEdit] = useState(false);
-  const [formValues, setFormValues] = useState(selectedCourse || {});
+  const [formValues, setFormValues] = useState(selectedVideo || {});
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -71,15 +71,14 @@ const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCour
     setModalEdit(false);
   }
   
-  const handleUpdateCourse = async (data, courseId) => {
-    const updatedData = { ...data, imageUrl: formValues.imageUrl };
+  const handleUpdateVideo = async (data, videoId) => {
     try {
-      const response = await dispatch(EditCourse({ courseId, courseData: updatedData }));
+      const response = await dispatch(EditVideo({ videoId, videoData: data }));
       if (response.error) {
-        toast.error("Cập nhật khóa học thất bại!");
+        toast.error("Cập nhật video thất bại!");
       } else {
-        toast.success("Cập nhật khóa học thành công!");
-        dispatch(fetchCourses());
+        toast.success("Cập nhật video thành công!");
+        dispatch(fetchVideo());
         onRequestClose();
       }
     } catch (error) {
@@ -89,48 +88,20 @@ const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCour
   };
 
 
-  const handleImageUpload = async (event) => {
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "taujkhku");
-    formData.append("cloud_name", "do688zacl");
-    formData.append("api_key", "349158946865815");
-
-    setIsLoading(true);
-
-    try {
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/taujkhku/image/upload",
-        formData
-      );
-      const imageCloudUrl = response.data.secure_url;
-      setFormValues((prevFormValues) => ({
-        ...prevFormValues,
-        imageUrl: imageCloudUrl,
-      }));
-    } catch (error) {
-      console.log("Lỗi khi upload ảnh", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues((prevSelectedUser) => ({
-      ...prevSelectedUser,
+    setFormValues((prevSelectedVideo) => ({
+      ...prevSelectedVideo,
       [name]: value,
     }));
   };
 
   useEffect(() => {
-    if (selectedCourse) {
-      setFormValues(selectedCourse);
-      setValue("title", selectedCourse.title);
-      setValue("description", selectedCourse.description);
+    if (selectedVideo) {
+      setFormValues(selectedVideo);
+     
     }
-  }, [selectedCourse]);
+  }, [selectedVideo]);
   return (
     <Modal
       isOpen={isOpen}
@@ -139,8 +110,8 @@ const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCour
       style={customStyles}
       contentLabel="Example Modal"
     >
-      <ModalTitle>Cập nhật khóa học</ModalTitle>
-      <ModalForm onSubmit={handleSubmit((data) => handleUpdateCourse(data, formValues.id ) )}>
+      <ModalTitle>Cập nhật video</ModalTitle>
+      <ModalForm onSubmit={handleSubmit((data) => handleUpdateVideo(data, formValues.id ) )}>
         <ModalControler>
           <ModalLeft>
             <ModalContent>
@@ -158,29 +129,6 @@ const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCour
                />
             </ModalContent>
           </ModalLeft>
-          <ModalRight>
-            <ModalContent>
-              <ModalLabel>Ảnh mô tả</ModalLabel>
-              <ModalAvatar>
-               <ModalImage src={formValues?.imageUrl || ""} alt="" />
-                <ModalAddAvatar>
-                  <ModalInput
-                    style={{display: "none"}}
-                    name="add-image"
-                    id="add-image"
-                    {...register("imageUrl")}
-                    onChange={handleImageUpload}
-                    type="file"
-                  
-                  />
-                  <ModLabel htmlFor="add-image">
-                    {" "}
-                    <FaUpload />
-                  </ModLabel>
-                </ModalAddAvatar>
-              </ModalAvatar>
-            </ModalContent>
-          </ModalRight>
         </ModalControler>
         <ControlerButton>
           <ModalButtonAccept type="submit">Cập nhật</ModalButtonAccept>
@@ -190,4 +138,4 @@ const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCour
   );
 };
 
-export default ModalEditCourse;
+export default ModalEditVideo;

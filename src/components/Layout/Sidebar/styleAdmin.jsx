@@ -62,7 +62,6 @@ export const PageItem = styled(NavLink)`
   text-align: left;
   background-color: ${(props) => (props.isActive ? " rgb(31 41 57)" : "none")};
   padding: 8px 16px 8px 56px;
-
   font-weight: 400;
   text-decoration: none;
 `;

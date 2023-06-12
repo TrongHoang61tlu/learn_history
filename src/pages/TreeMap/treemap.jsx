@@ -2,53 +2,32 @@
 
 import React from "react";
 import CourseMapLessons from "../.././components/CourseMapLessons/courseMapLessons";
-import { Info, LessonsWrapper, Title, Wrapper } from "./style";
+import { Info, LessonsWrapper, Wrapper } from "./style";
 import SideBar from "../../components/Layout/Sidebar/sidebar";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function CourseMap() {
+  const { id } = useParams();
+  const courseId = parseInt(id);
+  
+  const courseData = useSelector((state) => state.coursebyuser.courses);
+  const course = courseData.find((course) => course.id === courseId);
+
+  
+  if (!course) {
+    return <div>Không tìm thấy khóa học.</div>;
+  }
+  const courseContents = course.CourseContents || [];
   return (
     <>
       <Wrapper>
       <SideBar />
-        <Title>Course Map</Title>
         <LessonsWrapper>
           <CourseMapLessons
-            title="Vua hùng và các con trai yêu quý :))
-          "
+            title={course.title}
             icon="https://www.duolingo.com/images/skills/icon_basic_1.svg"
-            lessons={[
-              {
-                id: 1,
-                title: "Phrases",
-                completed: true,
-              },
-              {
-                id: 2,
-                title: "Intro",
-                completed: true,
-              },
-              {
-                id: 3,
-                title: "People 1",
-                completed: false,
-              },
-
-              {
-                id: 4,
-                title: "People 2",
-                completed: false,
-              },
-              {
-                id: 5,
-                title: "People 2",
-                completed: false,
-              },
-              {
-                id: 6,
-                title: "People 2",
-                completed: false,
-              },
-            ]}
+            lessons={courseContents}
           />
         </LessonsWrapper>
       <Info>

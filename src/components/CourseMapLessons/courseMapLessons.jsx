@@ -1,22 +1,25 @@
 import React from "react";
-import { Lesson, LessonIcon, LessonName, Title, Wrapper } from "./style";
+import { Lesson, LessonIcon, LessonName, Main, Title, Wrapper } from "./style";
 
 const CourseMapLessons = ({ lessons, title }) => {
   return (
     <Wrapper>
       <Title>{title}</Title>
-      {lessons.map((lesson, index) => (
-        <Lesson
-          key={lesson.id}
-          completed={lesson.completed}
-          // locked={!lesson.completed && index > 0}
-        >
-          <LessonIcon completed={lesson.completed}>
-            {lesson.completed ? "✓" : "●"}
-          </LessonIcon>
-          <LessonName completed={lesson.completed}>{lesson.title}</LessonName>
-        </Lesson>
-      ))}
+      <Main>
+        {lessons.map((lesson, index) => (
+          <Lesson
+            key={lesson.id}
+            completed={lesson.status}
+            index={index}
+            // locked={!lesson.completed && index > 0}
+          >
+            <LessonIcon completed={lesson.completed}>
+              {lesson.status ? "✓" : "●"}
+            </LessonIcon>
+            <LessonName completed={lesson.completed}>{lesson.chapterName}</LessonName>
+          </Lesson>
+        ))}
+      </Main>
     </Wrapper>
   );
 };

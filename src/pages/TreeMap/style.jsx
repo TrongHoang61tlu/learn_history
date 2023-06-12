@@ -20,6 +20,7 @@ export const Title = styled.h1`
 export const LessonsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  padding-top : 100px;
 `;
 
 export const Info = styled.div`

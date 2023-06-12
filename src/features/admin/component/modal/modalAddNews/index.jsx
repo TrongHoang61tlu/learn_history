@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
-import {  fetchUsers, updateUsers } from "../../../adminSlice";
 import {
   ControlerButton,
   ModLabel,
@@ -21,45 +20,49 @@ import {
   ModalRight,
   ModalTitle,
 } from "./style";
+
 import { toast } from "react-toastify";
+import { addCourse, fetchCourses } from "../../../courseSlice";
 import { FaUpload } from "react-icons/fa";
 import axios from "axios";
-import { useEffect } from "react";
+import { addNews, fetchNews } from "../../../newsSlice";
 
 const customStyles = {
   content: {
     top: "50%",
     left: "50%",
     width: "70%",
+    height: "80vh",
+    overfolow: "scroll",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     padding: 0,
   },
-  overlay: { zIndex: 9999, backgroundColor: "rgba(0, 7, 52, 0.2)" },
+  overlay: {
+    zIndex: 9999,
+    backgroundColor: "rgba(0, 7, 52, 0.2)",
+  },
 };
 
 const schema = yup.object().shape({
-  firstName: yup.string(),
-  lastName: yup.string(),
-  image: yup.string(),
-  phonenumber: yup.string(),
-  address: yup.string(),
-
+  title: yup.string(),
+  imageUrl: yup.string(),
+  description: yup.string(),
+  linkUrl: yup.string(),
 });
 
 // Modal.setAppElement("#root");
 
-const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) => {
+const ModalAddNews = ({ isOpen, onRequestClose, onSubmitHandler }) => {
   const dispatch = useDispatch();
   const [modalAdd, setModalAdd] = useState(false);
-  const [formValues, setFormValues] = useState(selectedUser || {});
+  const [imageCloudUrl, setImageCloudUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
     reset,
   } = useForm({
@@ -68,25 +71,20 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
   function closeModal() {
     setModalAdd(false);
   }
-
-  const handleUpdateUser = async (data, userId) => {
-    const updatedData = { ...data, image: formValues.image };
+  const onSubmitHandlerd = async (data) => {
+    data.imageUrl = imageCloudUrl;
     try {
-      const response = await dispatch(updateUsers({ userId, userData: updatedData }));
-      if (response.error) {
-        toast.error("Cập nhật khóa học thất bại!");
-      } else {
-        toast.success("Cập nhật khóa học thành công!");
-        dispatch(fetchUsers());
-        onRequestClose();
-      }
+      // Thực hiện đăng ký
+      await dispatch(addNews(data));
+      dispatch(fetchNews()); // Gọi action fetchUsers để cập nhật danh sách người dùng
+      onRequestClose(); // Đóng modal sau khi thêm thành công
+      // Xử lý thành công
     } catch (error) {
-      toast.error("Đã xảy ra lỗi khi cập nhật khóa học!");
+      toast.error("Đã xảy ra lỗi khi đăng ký!");
     }
     reset();
   };
 
-  
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
@@ -95,38 +93,18 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
     formData.append("cloud_name", "do688zacl");
     formData.append("api_key", "349158946865815");
 
-    setIsLoading(true);
-
     try {
       const response = await axios.post(
         "https://api.cloudinary.com/v1_1/taujkhku/image/upload",
         formData
       );
       const imageCloudUrl = response.data.secure_url;
-      setFormValues((prevFormValues) => ({
-        ...prevFormValues,
-        image: imageCloudUrl,
-      }));
+      setImageCloudUrl(imageCloudUrl);
     } catch (error) {
       console.log("Lỗi khi upload ảnh", error);
-    } finally {
-      setIsLoading(false);
     }
+    setIsLoading(false); // Kết thúc hiệu ứng tải ảnh
   };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prevSelectedUser) => ({
-      ...prevSelectedUser,
-      [name]: value,
-    }));
-  };
-
-  useEffect(() => {
-    if (selectedUser) {
-      setFormValues(selectedUser);
-    }
-  }, [selectedUser]);
 
   return (
     <Modal
@@ -136,50 +114,39 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
       style={customStyles}
       contentLabel="Example Modal"
     >
-      <ModalTitle>Thêm mới người dùng</ModalTitle>
-      <ModalForm onSubmit={handleSubmit((data) => handleUpdateUser(data, formValues.id) )}>
+      <ModalTitle>Thêm mới tin tức</ModalTitle>
+      <ModalForm onSubmit={handleSubmit(onSubmitHandlerd)}>
         <ModalControler>
           <ModalLeft>
             <ModalContent>
-              <ModalLabel>Tên</ModalLabel>
-              <ModalInput {...register("firstName")} 
-              value={formValues.firstName || ""}
-                onChange={handleChange}
-             />
+              <ModalLabel>Tiêu đề</ModalLabel>
+              <ModalInput {...register("title")} type="text" />
             </ModalContent>
             <ModalContent>
-              <ModalLabel>Họ</ModalLabel>
-              <ModalInput {...register("lastName")}
-               value={formValues.lastName || ""}
-               onChange={handleChange}
-              />
+              <ModalLabel>Mô tả</ModalLabel>
+              <ModalInput {...register("description")} />
             </ModalContent>
             <ModalContent>
-              <ModalLabel>Số điện thoại</ModalLabel>
-              <ModalInput {...register("phonenumber")}
-               value={formValues.phonenumber || ""}
-               onChange={handleChange}
-              />
-            </ModalContent>
-            <ModalContent>
-              <ModalLabel>Địa chỉ</ModalLabel>
-              <ModalInput {...register("address")}
-               value={formValues.address || ""}
-               onChange={handleChange}
-              />
+              <ModalLabel>Đường dẫn bài viết</ModalLabel>
+              <ModalInput {...register("linkUrl")} />
             </ModalContent>
           </ModalLeft>
           <ModalRight>
-          <ModalContent>
+            <ModalContent>
               <ModalLabel>Ảnh mô tả</ModalLabel>
               <ModalAvatar>
-                <ModalImage src={formValues?.image || ""}  alt="" />
+                {isLoading ? (
+                  <div>Đang tải ảnh...</div> // Hiển thị hiệu ứng tải ảnh
+                ) : (
+                  <ModalImage src={imageCloudUrl} alt="" />
+                )}
+                {/* ... */}
                 <ModalAddAvatar>
                   <ModalInput
                     style={{ display: "none" }}
+                    {...register("imageUrl")}
                     name="add-image"
                     id="add-image"
-                    {...register("image")}
                     type="file"
                     onChange={handleImageUpload}
                     required
@@ -201,4 +168,4 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
   );
 };
 
-export default ModalAddUser;
+export default ModalAddNews;

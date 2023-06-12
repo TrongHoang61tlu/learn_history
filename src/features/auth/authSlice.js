@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const initialState = {
   isLogin: false,
@@ -9,7 +10,8 @@ const initialState = {
   errorMessage: null, // Thêm trường errorMessage
   roleId: null,
   firstName : null,
-  lastName : null
+  lastName : null,
+  image: null
 };
 
 export const getToken = () => {
@@ -53,6 +55,7 @@ export const login = createAsyncThunk(
         localStorage.setItem("name", response.data.user.firstName );
         localStorage.setItem("email", response.data.user.email );
         localStorage.setItem("avatar", response.data.user.image );
+        toast.success("Đăng nhập thành công")
         callback(response.data.user.roleId);
         return {
           user: response.data,
@@ -99,8 +102,9 @@ const authSlice = createSlice({
         state.isLogin = true;
         state.successMessage = "Login successful";
         state.roleId = action.payload.roleId; // Lưu trữ role vào state
-        state.fistName = action.payload.fistName;
-        state.lastName = action.payload.lastName; 
+        state.firstName = action.payload.user.user.firstName;
+        state.lastName = action.payload.user.user.lastName; 
+        state.image = action.payload.user.user.image;
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;

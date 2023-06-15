@@ -26,7 +26,6 @@ function CourseMap() {
         <LessonsWrapper>
           <CourseMapLessons
             title={course.title}
-            icon="https://www.duolingo.com/images/skills/icon_basic_1.svg"
             lessons={courseContents}
           />
         </LessonsWrapper>

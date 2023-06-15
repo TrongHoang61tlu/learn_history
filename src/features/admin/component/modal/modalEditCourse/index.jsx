@@ -22,7 +22,7 @@ import {
 } from "./style";
 
 import { toast } from "react-toastify";
-import {  EditCourse, fetchCourses } from "../../../courseSlice";
+import { EditCourse, fetchCourses } from "../../../courseSlice";
 import { FaUpload } from "react-icons/fa";
 import axios from "axios";
 
@@ -31,7 +31,7 @@ const customStyles = {
     top: "50%",
     left: "50%",
     width: "70%",
-    height : "80vh",
+    height: "80vh",
     overfolow: "scroll",
     right: "auto",
     bottom: "auto",
@@ -53,10 +53,16 @@ const schema = yup.object().shape({
 
 // Modal.setAppElement("#root");
 
-const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCourse }) => {
+const ModalEditCourse = ({
+  isOpen,
+  onRequestClose,
+  onSubmitHandler,
+  selectedCourse,
+}) => {
   const dispatch = useDispatch();
   const [modalEdit, setModalEdit] = useState(false);
-  const [formValues, setFormValues] = useState(selectedCourse || {});
+  const [initialValues, setInitialValues] = useState({});
+  const [formValues, setFormValues] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -70,11 +76,13 @@ const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCour
   function closeModal() {
     setModalEdit(false);
   }
-  
+
   const handleUpdateCourse = async (data, courseId) => {
     const updatedData = { ...data, imageUrl: formValues.imageUrl };
     try {
-      const response = await dispatch(EditCourse({ courseId, courseData: updatedData }));
+      const response = await dispatch(
+        EditCourse({ courseId, courseData: updatedData })
+      );
       if (response.error) {
         toast.error("Cập nhật khóa học thất bại!");
       } else {
@@ -87,7 +95,6 @@ const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCour
     }
     reset();
   };
-
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
@@ -125,6 +132,14 @@ const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCour
   };
 
   useEffect(() => {
+    setInitialValues(selectedCourse);
+  }, [selectedCourse]);
+
+  useEffect(() => {
+    setFormValues(initialValues);
+  }, [initialValues]);
+
+  useEffect(() => {
     if (selectedCourse) {
       setFormValues(selectedCourse);
       setValue("title", selectedCourse.title);
@@ -140,38 +155,44 @@ const ModalEditCourse = ({ isOpen, onRequestClose, onSubmitHandler, selectedCour
       contentLabel="Example Modal"
     >
       <ModalTitle>Cập nhật khóa học</ModalTitle>
-      <ModalForm onSubmit={handleSubmit((data) => handleUpdateCourse(data, formValues.id ) )}>
+      <ModalForm
+        onSubmit={handleSubmit((data) =>
+          handleUpdateCourse(data, formValues.id)
+        )}
+      >
         <ModalControler>
           <ModalLeft>
             <ModalContent>
               <ModalLabel>Tiêu đề</ModalLabel>
-              <ModalInput {...register("title")} type="text"
-              value={formValues?.title || ""}
-              onChange={handleChange}
+              <ModalInput
+                {...register("title")}
+                type="text"
+                value={formValues?.title || ""}
+                onChange={handleChange}
               />
             </ModalContent>
             <ModalContent>
               <ModalLabel>Mô tả</ModalLabel>
-              <ModalInput {...register("description")} 
+              <ModalInput
+                {...register("description")}
                 value={formValues?.description || ""}
                 onChange={handleChange}
-               />
+              />
             </ModalContent>
           </ModalLeft>
           <ModalRight>
             <ModalContent>
               <ModalLabel>Ảnh mô tả</ModalLabel>
               <ModalAvatar>
-               <ModalImage src={formValues?.imageUrl || ""} alt="" />
+                <ModalImage src={formValues?.imageUrl || ""} alt="" />
                 <ModalAddAvatar>
                   <ModalInput
-                    style={{display: "none"}}
+                    style={{ display: "none" }}
                     name="add-image"
                     id="add-image"
                     {...register("imageUrl")}
                     onChange={handleImageUpload}
                     type="file"
-                  
                   />
                   <ModLabel htmlFor="add-image">
                     {" "}

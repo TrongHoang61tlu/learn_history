@@ -18,8 +18,8 @@ import {
 } from "./style";
 
 import { toast } from "react-toastify";
-import { EditContent, fetchCourseContent } from "../../../course-contentSlice";
 import { useEffect } from "react";
+import { EditQuizz, fetchQuizz } from "../../../quizzSlice";
 
 const customStyles = {
   content: {
@@ -41,19 +41,21 @@ const customStyles = {
 };
 
 const schema = yup.object().shape({
-  chapter: yup.string(),
-  chapterName: yup.string(),
-  lecture: yup.string(),
-  description: yup.string(),
+  question: yup.string(),
+  option1: yup.string(),
+  option2: yup.string(),
+  option3: yup.string(),
+  option4: yup.string(),
+  answer: yup.string(),
 });
 
 // Modal.setAppElement("#root");
 
-const ModalEditContent = ({
+const ModalEditQuizz = ({
   isOpen,
   onRequestClose,
   onSubmitHandler,
-  selectedContent,
+  selectedQuizz,
 }) => {
   const dispatch = useDispatch();
   const [modalEdit, setModalEdit] = useState(false);
@@ -70,43 +72,41 @@ const ModalEditContent = ({
   function closeModal() {
     setModalEdit(false);
   }
-  const handleUpdateContent = async (data, courseContentId) => {
+  const handleUpdateQuizz = async (data, quizzId) => {
     try {
-      const response = await dispatch(
-        EditContent({ courseContentId, courseContentData: data })
-      );
+      const response = await dispatch(EditQuizz({ quizzId, quizzData: data }));
       if (response.error) {
-        toast.error("Cập nhật khóa học thất bại!");
+        toast.error("Cập nhật câu hỏi thất bại!");
       } else {
-        toast.success("Cập nhật khóa học thành công!");
-        dispatch(fetchCourseContent());
+        toast.success("Cập nhật câu hỏi thành công!");
+        dispatch(fetchQuizz());
         onRequestClose();
       }
     } catch (error) {
-      toast.error("Đã xảy ra lỗi khi cập nhật khóa học!");
+      toast.error("Đã xảy ra lỗi khi cập nhật câu hỏi!");
     }
     reset();
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues((prevSelectedContent) => ({
-      ...prevSelectedContent,
+    setFormValues((prevSelectedQuizz) => ({
+      ...prevSelectedQuizz,
       [name]: value,
     }));
   };
 
   useEffect(() => {
-    setInitialValues(selectedContent);
-  }, [selectedContent]);
+    setInitialValues(selectedQuizz);
+  }, [selectedQuizz]);
 
   useEffect(() => {
     setFormValues(initialValues);
   }, [initialValues]);
 
   useEffect(() => {
-    setFormValues(selectedContent);
-  }, [selectedContent]);
+    setFormValues(selectedQuizz);
+  }, [selectedQuizz]);
 
   return (
     <Modal
@@ -119,44 +119,60 @@ const ModalEditContent = ({
       <ModalTitle>Sửa bài học</ModalTitle>
       <ModalForm
         onSubmit={handleSubmit((data) =>
-          handleUpdateContent(data, formValues?.id)
+          handleUpdateQuizz(data, formValues?.id)
         )}
       >
         <ModalControler>
           <ModalLeft>
             <ModalContent>
-              <ModalLabel>Chương </ModalLabel>
+              <ModalLabel>Câu hỏi </ModalLabel>
               <ModalInput
-                {...register("chapter")}
+                {...register("question")}
                 type="text"
                 onChange={handleChange}
-                value={formValues?.chapter}
+                value={formValues?.question }
               />
             </ModalContent>
             <ModalContent>
-              <ModalLabel>Tên chương</ModalLabel>
+              <ModalLabel>Đáp án 1</ModalLabel>
               <ModalInput
-                {...register("chapterName")}
+                {...register("option1")}
                 onChange={handleChange}
-                value={formValues?.chapterName}
+                value={formValues?.option1}
+              />
+            </ModalContent>
+            <ModalContent>
+              <ModalLabel>Đáp án 2</ModalLabel>
+              <ModalInput
+                {...register("option2")}
+                onChange={handleChange}
+                value={formValues?.option2}
               />
             </ModalContent>
           </ModalLeft>
           <ModalRight>
             <ModalContent>
-              <ModalLabel>Tên bài học</ModalLabel>
+              <ModalLabel>Đáp án 3</ModalLabel>
               <ModalInput
-                {...register("lecture")}
+                {...register("option3")}
                 onChange={handleChange}
-                value={formValues?.lecture}
+                value={formValues?.option3}
               />
             </ModalContent>
             <ModalContent>
-              <ModalLabel>Mô tả</ModalLabel>
+              <ModalLabel>Đáp án 4</ModalLabel>
               <ModalInput
-                {...register("description")}
+                {...register("option4")}
                 onChange={handleChange}
-                value={formValues?.description}
+                value={formValues?.option4}
+              />
+            </ModalContent>
+            <ModalContent>
+              <ModalLabel>Đáp án chính xác</ModalLabel>
+              <ModalInput
+                {...register("answer")}
+                onChange={handleChange}
+                value={formValues?.answer}
               />
             </ModalContent>
           </ModalRight>
@@ -169,4 +185,4 @@ const ModalEditContent = ({
   );
 };
 
-export default ModalEditContent;
+export default ModalEditQuizz;

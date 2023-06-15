@@ -22,8 +22,7 @@ function UserManager() {
   const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState(false);
   const dispatch = useDispatch();
   const usersData = useSelector((state) => state.admin.users);
-  const [selectedUser, setSelectedUser] = useState(null);
-
+  const [selectedUser, setSelectedUser] = useState("");
   const openModalAdd = () => {
     setModalAddIsOpen(true);
   };
@@ -72,7 +71,7 @@ function UserManager() {
           {usersData.map((user, index) => (
             <TableRow key={index}>
               <TableData>{user.email}</TableData>
-              <TableData>{user.firstName}</TableData>
+              <TableData>{user?.firstName}</TableData>
               <TableData>{user.lastName}</TableData>
               <TableData>{user.roleId === "1" ? "Admin" : "Member"}</TableData>
               <TableData>{user.address}</TableData>

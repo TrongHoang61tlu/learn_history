@@ -46,12 +46,12 @@ const schema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().min(8).max(32).required(),
   firstName: yup.string().required(),
-  lastName: yup.string().required(),
+  lastName: yup.string(),
   image: yup.string(),
-  phonenumber: yup.string().required(),
-  address: yup.string().required(),
-  gender: yup.string().required(),
-  roleId: yup.string().required(),
+  phonenumber: yup.string(),
+  address: yup.string(),
+  gender: yup.string(),
+  roleId: yup.string(),
 });
 
 // Modal.setAppElement("#root");
@@ -87,7 +87,6 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler }) => {
     reset();
   };
 
-  
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
@@ -133,39 +132,40 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler }) => {
             <ModalContent>
               <ModalLabel>Tên</ModalLabel>
               <ModalInput {...register("firstName")} required />
+              {errors.firstName && <Error>{errors.firstName.message}</Error>}
             </ModalContent>
             <ModalContent>
               <ModalLabel>Họ</ModalLabel>
-              <ModalInput {...register("lastName")} required />
+              <ModalInput {...register("lastName")} />
             </ModalContent>
             <ModalContent>
               <ModalLabel>Số điện thoại</ModalLabel>
-              <ModalInput {...register("phonenumber")} required />
+              <ModalInput {...register("phonenumber")} />
             </ModalContent>
             <ModalContent>
               <ModalLabel>Địa chỉ</ModalLabel>
-              <ModalInput {...register("address")} required />
+              <ModalInput {...register("address")} />
             </ModalContent>
             <ModalContent>
               <ModalLabel>Giới tính</ModalLabel>
-              <ModalSelect {...register("gender")} required>
+              <ModalSelect {...register("gender")}>
                 <ModalOption value="0">Nam</ModalOption>
                 <ModalOption value="1">Nữ</ModalOption>
               </ModalSelect>
             </ModalContent>
             <ModalContent>
               <ModalLabel>Quyền</ModalLabel>
-              <ModalSelect {...register("roleId")} required>
+              <ModalSelect {...register("roleId")}>
                 <ModalOption value="1">Admin</ModalOption>
                 <ModalOption value="2">Học sinh</ModalOption>
               </ModalSelect>
             </ModalContent>
           </ModalLeft>
           <ModalRight>
-          <ModalContent>
+            <ModalContent>
               <ModalLabel>Ảnh mô tả</ModalLabel>
               <ModalAvatar>
-                <ModalImage src={imageCloudUrl}  alt="" />
+                <ModalImage src={imageCloudUrl} alt="" />
                 <ModalAddAvatar>
                   <ModalInput
                     style={{ display: "none" }}
@@ -174,7 +174,6 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler }) => {
                     {...register("image")}
                     type="file"
                     onChange={handleImageUpload}
-                    required
                   />
                   <ModLabel for="add-image">
                     {" "}

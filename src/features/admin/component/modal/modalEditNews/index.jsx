@@ -22,7 +22,6 @@ import {
 } from "./style";
 
 import { toast } from "react-toastify";
-import {  EditCourse, fetchCourses } from "../../../courseSlice";
 import { FaUpload } from "react-icons/fa";
 import axios from "axios";
 import { EditNews, fetchNews } from "../../../newsSlice";
@@ -32,7 +31,7 @@ const customStyles = {
     top: "50%",
     left: "50%",
     width: "70%",
-    height : "80vh",
+    height: "80vh",
     overfolow: "scroll",
     right: "auto",
     bottom: "auto",
@@ -54,7 +53,12 @@ const schema = yup.object().shape({
 
 // Modal.setAppElement("#root");
 
-const ModalEditNews = ({ isOpen, onRequestClose, onSubmitHandler, selectedNews }) => {
+const ModalEditNews = ({
+  isOpen,
+  onRequestClose,
+  onSubmitHandler,
+  selectedNews,
+}) => {
   const dispatch = useDispatch();
   const [modalEdit, setModalEdit] = useState(false);
   const [formValues, setFormValues] = useState(selectedNews || {});
@@ -71,11 +75,13 @@ const ModalEditNews = ({ isOpen, onRequestClose, onSubmitHandler, selectedNews }
   function closeModal() {
     setModalEdit(false);
   }
-  
+
   const handleUpdateNews = async (data, newsId) => {
     const updatedData = { ...data, imageUrl: formValues.imageUrl };
     try {
-      const response = await dispatch(EditNews({ newsId, newsData: updatedData }));
+      const response = await dispatch(
+        EditNews({ newsId, newsData: updatedData })
+      );
       if (response.error) {
         toast.error("Cập nhật tin tức thất bại !!");
       } else {
@@ -88,7 +94,6 @@ const ModalEditNews = ({ isOpen, onRequestClose, onSubmitHandler, selectedNews }
     }
     reset();
   };
-
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
@@ -141,45 +146,50 @@ const ModalEditNews = ({ isOpen, onRequestClose, onSubmitHandler, selectedNews }
       contentLabel="Example Modal"
     >
       <ModalTitle>Cập nhật tin tức</ModalTitle>
-      <ModalForm onSubmit={handleSubmit((data) => handleUpdateNews(data, formValues.id ) )}>
+      <ModalForm
+        onSubmit={handleSubmit((data) => handleUpdateNews(data, formValues.id))}
+      >
         <ModalControler>
           <ModalLeft>
             <ModalContent>
               <ModalLabel>Tiêu đề</ModalLabel>
-              <ModalInput {...register("title")} type="text"
-              value={formValues?.title || ""}
-              onChange={handleChange}
+              <ModalInput
+                {...register("title")}
+                type="text"
+                value={formValues?.title || ""}
+                onChange={handleChange}
               />
             </ModalContent>
             <ModalContent>
               <ModalLabel>Mô tả</ModalLabel>
-              <ModalInput {...register("description")} 
+              <ModalInput
+                {...register("description")}
                 value={formValues?.description || ""}
                 onChange={handleChange}
-               />
+              />
             </ModalContent>
             <ModalContent>
               <ModalLabel>Mô tả</ModalLabel>
-              <ModalInput {...register("linkUrl")} 
+              <ModalInput
+                {...register("linkUrl")}
                 value={formValues?.linkUrl || ""}
                 onChange={handleChange}
-               />
+              />
             </ModalContent>
           </ModalLeft>
           <ModalRight>
             <ModalContent>
               <ModalLabel>Ảnh mô tả</ModalLabel>
               <ModalAvatar>
-               <ModalImage src={formValues?.imageUrl || ""} alt="" />
+                <ModalImage src={formValues?.imageUrl || ""} alt="" />
                 <ModalAddAvatar>
                   <ModalInput
-                    style={{display: "none"}}
+                    style={{ display: "none" }}
                     name="add-image"
                     id="add-image"
                     {...register("imageUrl")}
                     onChange={handleImageUpload}
                     type="file"
-                  
                   />
                   <ModLabel htmlFor="add-image">
                     {" "}

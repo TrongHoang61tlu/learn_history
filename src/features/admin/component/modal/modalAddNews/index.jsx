@@ -22,7 +22,6 @@ import {
 } from "./style";
 
 import { toast } from "react-toastify";
-import { addCourse, fetchCourses } from "../../../courseSlice";
 import { FaUpload } from "react-icons/fa";
 import axios from "axios";
 import { addNews, fetchNews } from "../../../newsSlice";

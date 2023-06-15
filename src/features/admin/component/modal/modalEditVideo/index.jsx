@@ -6,25 +6,17 @@ import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import {
   ControlerButton,
-  ModLabel,
-  ModalAddAvatar,
-  ModalAvatar,
   ModalButtonAccept,
   ModalContent,
   ModalControler,
   ModalForm,
-  ModalImage,
   ModalInput,
   ModalLabel,
   ModalLeft,
-  ModalRight,
   ModalTitle,
 } from "./style";
 
 import { toast } from "react-toastify";
-import {  EditCourse, fetchCourses } from "../../../courseSlice";
-import { FaUpload } from "react-icons/fa";
-import axios from "axios";
 import { EditVideo, fetchVideo } from "../../../videoSlice";
 
 const customStyles = {
@@ -32,7 +24,7 @@ const customStyles = {
     top: "50%",
     left: "50%",
     width: "70%",
-    height : "80vh",
+    height: "80vh",
     overfolow: "scroll",
     right: "auto",
     bottom: "auto",
@@ -53,15 +45,19 @@ const schema = yup.object().shape({
 
 // Modal.setAppElement("#root");
 
-const ModalEditVideo = ({ isOpen, onRequestClose, onSubmitHandler, selectedVideo }) => {
+const ModalEditVideo = ({
+  isOpen,
+  onRequestClose,
+  onSubmitHandler,
+  selectedVideo,
+}) => {
   const dispatch = useDispatch();
   const [modalEdit, setModalEdit] = useState(false);
-  const [formValues, setFormValues] = useState(selectedVideo || {});
-  const [isLoading, setIsLoading] = useState(false);
+  const [initialValues, setInitialValues] = useState({});
+  const [formValues, setFormValues] = useState({});
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
     reset,
   } = useForm({
@@ -70,7 +66,7 @@ const ModalEditVideo = ({ isOpen, onRequestClose, onSubmitHandler, selectedVideo
   function closeModal() {
     setModalEdit(false);
   }
-  
+
   const handleUpdateVideo = async (data, videoId) => {
     try {
       const response = await dispatch(EditVideo({ videoId, videoData: data }));
@@ -87,7 +83,6 @@ const ModalEditVideo = ({ isOpen, onRequestClose, onSubmitHandler, selectedVideo
     reset();
   };
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prevSelectedVideo) => ({
@@ -95,11 +90,17 @@ const ModalEditVideo = ({ isOpen, onRequestClose, onSubmitHandler, selectedVideo
       [name]: value,
     }));
   };
+  useEffect(() => {
+    setInitialValues(selectedVideo);
+  }, [selectedVideo]);
+
+  useEffect(() => {
+    setFormValues(initialValues);
+  }, [initialValues]);
 
   useEffect(() => {
     if (selectedVideo) {
       setFormValues(selectedVideo);
-     
     }
   }, [selectedVideo]);
   return (
@@ -111,22 +112,29 @@ const ModalEditVideo = ({ isOpen, onRequestClose, onSubmitHandler, selectedVideo
       contentLabel="Example Modal"
     >
       <ModalTitle>Cập nhật video</ModalTitle>
-      <ModalForm onSubmit={handleSubmit((data) => handleUpdateVideo(data, formValues.id ) )}>
+      <ModalForm
+        onSubmit={handleSubmit((data) =>
+          handleUpdateVideo(data, formValues.id)
+        )}
+      >
         <ModalControler>
           <ModalLeft>
             <ModalContent>
               <ModalLabel>Tiêu đề</ModalLabel>
-              <ModalInput {...register("title")} type="text"
-              value={formValues?.title || ""}
-              onChange={handleChange}
+              <ModalInput
+                {...register("title")}
+                type="text"
+                value={formValues?.title || ""}
+                onChange={handleChange}
               />
             </ModalContent>
             <ModalContent>
               <ModalLabel>Mô tả</ModalLabel>
-              <ModalInput {...register("description")} 
+              <ModalInput
+                {...register("description")}
                 value={formValues?.description || ""}
                 onChange={handleChange}
-               />
+              />
             </ModalContent>
           </ModalLeft>
         </ModalControler>

@@ -6,6 +6,7 @@ import newsSlice from '../features/admin/newsSlice';
 import courseByUserSlice from '../features/course/courseByUserSlice';
 import courseContentSlice from '../features/admin/course-contentSlice';
 import videoSlice from '../features/admin/videoSlice';
+import quizzSlice from '../features/admin/quizzSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     courseContent : courseContentSlice,
     coursebyuser : courseByUserSlice,
     video : videoSlice,
+    quizz : quizzSlice,
   },
 });
 store.dispatch(checkToken());

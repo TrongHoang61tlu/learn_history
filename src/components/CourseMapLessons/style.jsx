@@ -71,6 +71,7 @@ export const Lesson = styled.div`
     transform: translateY(5px);
   }
   float: ${(props) => (props.index % 2 === 0 ? "left" : "right")};
+  order: ${(props) => props.id};
 `;
 
 export const LessonIcon = styled.div`

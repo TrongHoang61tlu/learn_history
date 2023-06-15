@@ -6,9 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import {
   ControlerButton,
-  ModLabel,
-  ModalAddAvatar,
-  ModalAvatar,
   ModalButtonAccept,
   ModalContent,
   ModalControler,
@@ -20,13 +17,10 @@ import {
   ModalRight,
   ModalSelect,
   ModalTitle,
-  ModalVideo,
 } from "./style";
 
 import { toast } from "react-toastify";
-import { FaUpload } from "react-icons/fa";
-import axios from "axios";
-import { addVideo, fetchVideo } from "../../../videoSlice";
+import { addQuizz, fetchQuizz } from "../../../quizzSlice";
 
 const customStyles = {
   content: {
@@ -48,22 +42,22 @@ const customStyles = {
 };
 
 const schema = yup.object().shape({
-  contentID: yup.string().required(),
-  title: yup.string(),
-  thumbnaiUrl: yup.string(),
-  videoUrl: yup.string(),
-  description: yup.string(),
+  contentId: yup.string().required(),
+  question: yup.string(),
+  option1: yup.string(),
+  option2: yup.string(),
+  option3: yup.string(),
+  option4: yup.string(),
+  answer: yup.string(),
 });
 
 // Modal.setAppElement("#root");
 
-const ModalAddVideo = ({ isOpen, onRequestClose, onSubmitHandler }) => {
+const ModalAddQuizz = ({ isOpen, onRequestClose, onSubmitHandler }) => {
   const dispatch = useDispatch();
   const [modalAdd, setModalAdd] = useState(false);
-  const [videoCloudUrl, setVideoCloudUrl] = useState("");
   const content = useSelector((state) => state.courseContent.courseContent);
-  const [selectedContent, setSelectedContent] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState("");
   const {
     register,
     handleSubmit,
@@ -76,40 +70,17 @@ const ModalAddVideo = ({ isOpen, onRequestClose, onSubmitHandler }) => {
     setModalAdd(false);
   }
   const onSubmitHandlerd = async (data) => {
-    data.videoUrl = videoCloudUrl;
     try {
       // Thực hiện đăng ký
-      await dispatch(addVideo(data));
-      dispatch(fetchVideo()); // Gọi action fetchUsers để cập nhật danh sách người dùng
+      const newData = { ...data, courseID: selectedCourse };
+      await dispatch(addQuizz(newData));
+      dispatch(fetchQuizz()); // Gọi action fetchUsers để cập nhật danh sách người dùng
       onRequestClose(); // Đóng modal sau khi thêm thành công
       // Xử lý thành công
     } catch (error) {
       toast.error("Đã xảy ra lỗi khi đăng ký!");
     }
     reset();
-  };
-
-  const handleVideoUpload = async (event) => {
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "taujkhku");
-    formData.append("cloud_name", "do688zacl");
-    formData.append("api_key", "349158946865815");
-
-    try {
-      setIsLoading(true); // Start the loading animation
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/taujkhku/video/upload",
-        formData
-      );
-      const videoCloudUrl = response.data.secure_url;
-      setVideoCloudUrl(videoCloudUrl);
-    } catch (error) {
-      console.log("Lỗi khi upload video", error);
-    } finally {
-      setIsLoading(false); // Stop the loading animation
-    }
   };
 
   return (
@@ -120,15 +91,15 @@ const ModalAddVideo = ({ isOpen, onRequestClose, onSubmitHandler }) => {
       style={customStyles}
       contentLabel="Example Modal"
     >
-      <ModalTitle>Thêm mới Video</ModalTitle>
+      <ModalTitle>Thêm mới bài học</ModalTitle>
       <ModalForm onSubmit={handleSubmit(onSubmitHandlerd)}>
         <ModalControler>
           <ModalLeft>
             <ModalContent>
               <ModalLabel>Chọn bài học</ModalLabel>
               <ModalSelect
-                {...register("contentID", { required: true })}
-                onChange={(e) => setSelectedContent(e.target.value)}
+                {...register("contentId", { required: true })}
+                onChange={(e) => setSelectedCourse(e.target.value)}
               >
                 <option value="">-- Chọn bài học --</option>
                 {content.map((content) => (
@@ -142,39 +113,30 @@ const ModalAddVideo = ({ isOpen, onRequestClose, onSubmitHandler }) => {
               )}
             </ModalContent>
             <ModalContent>
-              <ModalLabel>Tiêu đề</ModalLabel>
-              <ModalInput {...register("title")} type="text" />
+              <ModalLabel>Câu hỏi </ModalLabel>
+              <ModalInput {...register("question")} type="text" />
             </ModalContent>
             <ModalContent>
-              <ModalLabel>Mô tả</ModalLabel>
-              <ModalInput {...register("description")} />
+              <ModalLabel>Đáp án 1</ModalLabel>
+              <ModalInput {...register("option1")} />
+            </ModalContent>
+            <ModalContent>
+              <ModalLabel>Đáp án 2</ModalLabel>
+              <ModalInput {...register("option2")} />
             </ModalContent>
           </ModalLeft>
           <ModalRight>
             <ModalContent>
-              <ModalLabel>Video</ModalLabel>
-              <ModalAvatar>
-                {isLoading ? (
-                  <div>Đang tải video...</div>
-                ) : (
-                  <ModalVideo src={videoCloudUrl} alt="" />
-                )}
-                {/* ... */}
-                <ModalAddAvatar>
-                  <ModalInput
-                    style={{ display: "none" }}
-                    {...register("videoUrl")}
-                    name="add-video"
-                    id="add-video"
-                    type="file"
-                    onChange={handleVideoUpload}
-                    required
-                  />
-                  <ModLabel htmlFor="add-video">
-                    <FaUpload />
-                  </ModLabel>
-                </ModalAddAvatar>
-              </ModalAvatar>
+              <ModalLabel>Đáp án 3</ModalLabel>
+              <ModalInput {...register("option3")} />
+            </ModalContent>
+            <ModalContent>
+              <ModalLabel>Đáp án 4 </ModalLabel>
+              <ModalInput {...register("option4")} />
+            </ModalContent>
+            <ModalContent>
+              <ModalLabel>Đáp án chính xác</ModalLabel>
+              <ModalInput {...register("answer")} />
             </ModalContent>
           </ModalRight>
         </ModalControler>
@@ -186,4 +148,4 @@ const ModalAddVideo = ({ isOpen, onRequestClose, onSubmitHandler }) => {
   );
 };
 
-export default ModalAddVideo;
+export default ModalAddQuizz;

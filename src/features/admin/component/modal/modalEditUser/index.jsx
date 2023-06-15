@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
-import {  fetchUsers, updateUsers } from "../../../adminSlice";
+import { fetchUsers, updateUsers } from "../../../adminSlice";
 import {
   ControlerButton,
   ModLabel,
@@ -46,20 +46,24 @@ const schema = yup.object().shape({
   image: yup.string(),
   phonenumber: yup.string(),
   address: yup.string(),
-
 });
 
 // Modal.setAppElement("#root");
 
-const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) => {
+const ModalAddUser = ({
+  isOpen,
+  onRequestClose,
+  onSubmitHandler,
+  selectedUser,
+}) => {
   const dispatch = useDispatch();
   const [modalAdd, setModalAdd] = useState(false);
-  const [formValues, setFormValues] = useState(selectedUser || {});
+  const [initialValues, setInitialValues] = useState({});
+  const [formValues, setFormValues] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
     reset,
   } = useForm({
@@ -72,7 +76,9 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
   const handleUpdateUser = async (data, userId) => {
     const updatedData = { ...data, image: formValues.image };
     try {
-      const response = await dispatch(updateUsers({ userId, userData: updatedData }));
+      const response = await dispatch(
+        updateUsers({ userId, userData: updatedData })
+      );
       if (response.error) {
         toast.error("Cập nhật khóa học thất bại!");
       } else {
@@ -86,7 +92,6 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
     reset();
   };
 
-  
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
@@ -121,6 +126,13 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
       [name]: value,
     }));
   };
+  useEffect(() => {
+    setInitialValues(selectedUser);
+  }, [selectedUser]);
+
+  useEffect(() => {
+    setFormValues(initialValues);
+  }, [initialValues]);
 
   useEffect(() => {
     if (selectedUser) {
@@ -137,43 +149,49 @@ const ModalAddUser = ({ isOpen, onRequestClose, onSubmitHandler,selectedUser }) 
       contentLabel="Example Modal"
     >
       <ModalTitle>Thêm mới người dùng</ModalTitle>
-      <ModalForm onSubmit={handleSubmit((data) => handleUpdateUser(data, formValues.id) )}>
+      <ModalForm
+        onSubmit={handleSubmit((data) => handleUpdateUser(data, formValues.id))}
+      >
         <ModalControler>
           <ModalLeft>
             <ModalContent>
               <ModalLabel>Tên</ModalLabel>
-              <ModalInput {...register("firstName")} 
-              value={formValues.firstName || ""}
+              <ModalInput
+                {...register("firstName")}
+                value={formValues.firstName || ""}
                 onChange={handleChange}
-             />
+              />
             </ModalContent>
             <ModalContent>
               <ModalLabel>Họ</ModalLabel>
-              <ModalInput {...register("lastName")}
-               value={formValues.lastName || ""}
-               onChange={handleChange}
+              <ModalInput
+                {...register("lastName")}
+                value={formValues.lastName || ""}
+                onChange={handleChange}
               />
             </ModalContent>
             <ModalContent>
               <ModalLabel>Số điện thoại</ModalLabel>
-              <ModalInput {...register("phonenumber")}
-               value={formValues.phonenumber || ""}
-               onChange={handleChange}
+              <ModalInput
+                {...register("phonenumber")}
+                value={formValues.phonenumber || ""}
+                onChange={handleChange}
               />
             </ModalContent>
             <ModalContent>
               <ModalLabel>Địa chỉ</ModalLabel>
-              <ModalInput {...register("address")}
-               value={formValues.address || ""}
-               onChange={handleChange}
+              <ModalInput
+                {...register("address")}
+                value={formValues.address || ""}
+                onChange={handleChange}
               />
             </ModalContent>
           </ModalLeft>
           <ModalRight>
-          <ModalContent>
+            <ModalContent>
               <ModalLabel>Ảnh mô tả</ModalLabel>
               <ModalAvatar>
-                <ModalImage src={formValues?.image || ""}  alt="" />
+                <ModalImage src={formValues?.image || ""} alt="" />
                 <ModalAddAvatar>
                   <ModalInput
                     style={{ display: "none" }}

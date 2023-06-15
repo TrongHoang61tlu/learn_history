@@ -11,6 +11,9 @@ import { PrivateRoutes, PrivateLogin } from "./components/privateRouter";
 import { fetchCoursesByUser } from "./features/course/courseByUserSlice";
 import SidebarAdmin from "./components/Layout/Sidebar/sidebarAdmin";
 import HeaderAdmin from "./components/Layout/Header/headerAdmin";
+import { fetchNews } from "./features/admin/newsSlice";
+const Lesson = React.lazy(() => import("./pages/Lesson/lesson"))
+const Quizzmanager = React.lazy(() => import("./pages/quizzmanager/quizzmanager"))
 const Login = React.lazy(() => import("./features/auth/Login/loginPage"));
 const SignUp = React.lazy(() => import("./features/auth/Register/registerPage"))
 const Admin = React.lazy(() => import( "./features/admin/adminPage"));
@@ -37,6 +40,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchCoursesByUser());
+    dispatch(fetchNews());
   }, []);
 
   useEffect(() => {
@@ -70,6 +74,9 @@ function App() {
           <Route exact path="course/treemap/:id" element={<CourseMap />} />
         </Route>
         <Route exact element={<PrivateRoutes />}>
+          <Route exact path="course/treemap/:id/lesson/:id" element={<Lesson />} />
+        </Route>
+        <Route exact element={<PrivateRoutes />}>
           <Route exact path="admin/coursemanager" element={<Coursemanager />} />
         </Route>
         <Route exact element={<PrivateRoutes />}>
@@ -90,6 +97,9 @@ function App() {
         </Route>
         <Route exact element={<PrivateRoutes />}>
           <Route exact path="admin/videomanager" element={<Videomanager />} />
+        </Route>
+        <Route exact element={<PrivateRoutes />}>
+          <Route exact path="admin/quizzmanager" element={<Quizzmanager />} />
         </Route>
       </Routes>
       {isLoginPage ? null : <footer>{isAdminAuth ? null : <Footer />}</footer>}

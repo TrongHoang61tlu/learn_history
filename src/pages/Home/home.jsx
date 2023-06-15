@@ -31,6 +31,7 @@ import {
   ItemContentText,
   ItemContentNext,
 } from "./style";
+import { useSelector } from "react-redux";
 
 const settings = {
   dots: true,
@@ -42,6 +43,8 @@ const settings = {
   arrows: true,
 };
 function Home() {
+  const newsData = useSelector((state) => state.news.news);
+  console.log(newsData);
   return (
     <Wrapper>
       <Banner>
@@ -91,30 +94,26 @@ function Home() {
           </Item>
         </BannerBottom>
       </Banner>
-      
+
       <Main>
-        <MainLeft>
-          {/* <MainImg src="image/hochiminh.png" /> */}
-        </MainLeft>
+        <MainLeft>{/* <MainImg src="image/hochiminh.png" /> */}</MainLeft>
         <MainRight>
-        <TitleComment>Tin tức nổi bật</TitleComment>
+          <TitleComment>Tin tức nổi bật</TitleComment>
           <GridContainer>
-            <GridItem>
-              <MainItem>
-                <ItemImg src="image/banner.png" />
-                <ItemContent>
-                  <ItemContentTitle>Full Documentation</ItemContentTitle>
-                  <ItemContentText>
-                    Built by developers for developers. Check the foundation and
-                    you will find everything inside our documentation.
-                  </ItemContentText>
-                  <ItemContentNext href="">Xem thêm</ItemContentNext>
-                </ItemContent>
-              </MainItem>
-            </GridItem>
-            <GridItem>Item 2</GridItem>
-            <GridItem>Item 3</GridItem>
-            <GridItem>Item 4</GridItem>
+            {newsData.map((news) => (
+              <GridItem>
+                <MainItem>
+                  <ItemImg src={news.imageUrl} />
+                  <ItemContent>
+                    <ItemContentTitle>{news.title}</ItemContentTitle>
+                    <ItemContentText>
+                      {news.description}
+                    </ItemContentText>
+                    <ItemContentNext href={news.linkUrl}>Xem thêm</ItemContentNext>
+                  </ItemContent>
+                </MainItem>
+              </GridItem>
+            ))}
           </GridContainer>
         </MainRight>
       </Main>

@@ -179,11 +179,15 @@ export const GridItem = styled.div`
 
 export const MainItem = styled.div`
   display: flex;
-  align-items: center;
+  align-items: top;
+  
 `;
 
 export const ItemImg = styled.img`
   width: 30%;
+  height :80px;
+  margin-top: 20px;
+  border-radius: 5px;
 `;
 export const ItemContent = styled.div`
   margin-left: 15px;

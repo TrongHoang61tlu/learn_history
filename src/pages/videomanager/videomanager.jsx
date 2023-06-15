@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import { FaEdit, FaEye, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import ModalEditCourse from "../../features/admin/component/modal/modalEditCourse";
-import { deleteCourses } from "../../features/admin/courseSlice";
 import {
   ButtonAdd,
   ButtonDelete,
   ButtonUpdate,
-  ButtonView,
   Table,
   TableData,
   TableHeader,
@@ -29,7 +26,6 @@ function Videomanager() {
   const courseContentData = useSelector(
     (state) => state.courseContent.courseContent
   );
-  console.log(courseContentData);
 
   const openModalAdd = () => {
     setModalAddIsOpen(true);

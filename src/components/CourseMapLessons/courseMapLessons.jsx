@@ -4,14 +4,12 @@ import { Link } from "react-router-dom";
 
 const CourseMapLessons = ({ lessons, title }) => {
   const sortedLessons = lessons.slice().sort((a, b) => a.id - b.id);
-
-  console.log(sortedLessons);
   return (
     <Wrapper>
       <Title>{title}</Title>
       <Main>
         {sortedLessons.map((lesson, index) => (
-          <Link to={`lesson/${lesson.id}`} >
+          <Link to={`lesson/${lesson.id}`} state={{lesson}} >
 
           <Lesson
             key={lesson.id}

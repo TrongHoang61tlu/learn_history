@@ -12,6 +12,12 @@ import { fetchCoursesByUser } from "./features/course/courseByUserSlice";
 import SidebarAdmin from "./components/Layout/Sidebar/sidebarAdmin";
 import HeaderAdmin from "./components/Layout/Header/headerAdmin";
 import { fetchNews } from "./features/admin/newsSlice";
+import { fetchCourseContent } from "./features/admin/course-contentSlice";
+import { fetchVideo } from "./features/admin/videoSlice";
+import { fetchCourses } from "./features/admin/courseSlice";
+import Quiz from "./features/quiz/quizPage";
+import { fetchQuizz } from "./features/admin/quizzSlice";
+
 const Lesson = React.lazy(() => import("./pages/Lesson/lesson"))
 const Quizzmanager = React.lazy(() => import("./pages/quizzmanager/quizzmanager"))
 const Login = React.lazy(() => import("./features/auth/Login/loginPage"));
@@ -41,6 +47,10 @@ function App() {
   useEffect(() => {
     dispatch(fetchCoursesByUser());
     dispatch(fetchNews());
+    dispatch(fetchCourseContent());
+    dispatch(fetchVideo());
+    dispatch(fetchCourses());
+    dispatch(fetchQuizz());
   }, []);
 
   useEffect(() => {
@@ -71,10 +81,13 @@ function App() {
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="*" element={<Notfound />} />
         <Route exact element={<PrivateRoutes />}>
-          <Route exact path="course/treemap/:id" element={<CourseMap />} />
+          <Route exact path="course/:id" element={<CourseMap />} />
         </Route>
         <Route exact element={<PrivateRoutes />}>
-          <Route exact path="course/treemap/:id/lesson/:id" element={<Lesson />} />
+          <Route exact path="course/:courseId/lesson/:id" element={<Lesson />} />
+        </Route>
+        <Route exact element={<PrivateRoutes />}>
+          <Route exact path="course/:courseId/lesson/:id/quizz" element={<Quiz />} />
         </Route>
         <Route exact element={<PrivateRoutes />}>
           <Route exact path="admin/coursemanager" element={<Coursemanager />} />

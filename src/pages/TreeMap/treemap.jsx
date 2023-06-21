@@ -10,11 +10,10 @@ import { useSelector } from "react-redux";
 function CourseMap() {
   const { id } = useParams();
   const courseId = parseInt(id);
-  
+
   const courseData = useSelector((state) => state.coursebyuser.courses);
   const course = courseData.find((course) => course.id === courseId);
 
-  
   if (!course) {
     return <div>Không tìm thấy khóa học.</div>;
   }
@@ -22,16 +21,11 @@ function CourseMap() {
   return (
     <>
       <Wrapper>
-      <SideBar />
+        <SideBar />
         <LessonsWrapper>
-          <CourseMapLessons
-            title={course.title}
-            lessons={courseContents}
-          />
+          <CourseMapLessons title={course.title} lessons={courseContents} />
         </LessonsWrapper>
-      <Info>
-        ahvadjavdja
-      </Info>
+        <Info>ahvadjavdja</Info>
       </Wrapper>
     </>
   );

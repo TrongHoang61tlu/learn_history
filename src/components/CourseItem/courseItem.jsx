@@ -13,7 +13,7 @@ import {
 
 function CouresItem({ course }) {
   return (
-    <CourseLink to={`/course/treemap/${course.id}`}>
+    <CourseLink to={`/course/${course.id}`}>
       <Container>
         <Top>
           <TopImg src={course.imageUrl} />

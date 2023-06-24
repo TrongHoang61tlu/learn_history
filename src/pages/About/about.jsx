@@ -65,16 +65,20 @@ function About() {
       </Sestion>
       <SestionTwo>
         <SestionTwoText href="">
-          Company News: Udemy Rings the Opening Bell in Celebration of its IPO!
+        Hãy cùng nhau đắm mình trong biển cả tri thức 
         </SestionTwoText>
       </SestionTwo>
       <SestionThree>
         <ThreeContent>
-          <ThreeTitles>Improving lives through learning</ThreeTitles>
+          <ThreeTitles>Tình hình học lịch sử hiện tại </ThreeTitles>
           <ThreeText>
-            Whether you want to learn or to share what you know, you’ve come to
-            the right place. As a global destination for online learning, we
-            connect people through knowledge.
+            Trong thời đại công nghệ thông tin và môi trường sống hiện đại, sự
+            quan tâm đến học lịch sử đang giảm đi. Nhiều người cho rằng lịch sử
+            chỉ là việc học về quá khứ không liên quan đến cuộc sống hiện tại và
+            tương lai. Đa số người dân thiếu kiến thức cơ bản về lịch sử, đặc
+            biệt là lịch sử quốc gia và thế giới. Điều này gây ra một khoảng
+            cách văn hóa và hiểu biết giữa các thế hệ và gây mất cơ hội học hỏi
+            từ những bài học quan trọng của quá khứ.
           </ThreeText>
         </ThreeContent>
       </SestionThree>
@@ -87,10 +91,30 @@ function About() {
             ></source>
           </FourVideo>
           <FourDesc>
-            <DescTitle>We just keep growing</DescTitle>
+            <DescTitle>Lý do cần học lịch sử là:</DescTitle>
             <DescText>
-              Our global community and our course catalog get bigger every day.
-              Check out our latest numbers as of December 2022.
+              <strong>Hiểu về quá khứ: </strong> Học lịch sử giúp chúng ta hiểu rõ hơn về các sự
+              kiện quan trọng và quyết định đã ảnh hưởng đến thế giới hiện tại.
+              Nếu không hiểu lịch sử, chúng ta sẽ bị mất cơ hội học hỏi từ những
+              sai lầm và thành công của quá khứ.
+            </DescText>
+            <DescText>
+            <strong>Xây dựng nhận thức văn hóa:</strong> Lịch sử là cách để hiểu và trân trọng
+              giá trị của các văn hóa khác nhau trên thế giới. Nó giúp chúng ta
+              đánh giá cao sự đa dạng và khác biệt, từ đó xây dựng một thế giới
+              đa văn hóa và hòa bình.
+            </DescText>
+            <DescText>
+              <strong>Phát triển tư duy phản biện:</strong> Học lịch sử khuyến khích tư duy phản
+              biện, giúp chúng ta suy nghĩ logic, phân tích và đánh giá thông
+              tin một cách khách quan. Điều này rất quan trọng trong cuộc sống
+              hàng ngày và trong quá trình ra quyết định.
+            </DescText>
+            <DescText>
+              <strong>Nhận thức quyền công dân:</strong> Học lịch sử giúp chúng ta hiểu về quyền
+              và trách nhiệm của mình trong xã hội. Nó tạo ra nhận thức về quyền
+              công dân, khuyến khích sự tham gia tích cực và đóng góp vào cộng
+              đồng.
             </DescText>
           </FourDesc>
         </FourMain>

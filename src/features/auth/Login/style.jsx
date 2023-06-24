@@ -1,11 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  background: linear-gradient(
-    135deg,
-    rgba(34, 193, 195, 1) 0%,
-    rgba(253, 187, 45, 1) 100%
-  );
+  background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -22,8 +18,6 @@ export const MainContainer = styled.form`
   backdrop-filter: blur(8.5px);
   -webkit-backdrop-filter: blur(8.5px);
   border-radius: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.4rem;
   @media only screen and (max-width: 320px) {
     width: 80vw;
     height: 90vh;

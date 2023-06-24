@@ -6,7 +6,7 @@ import Footer from "./components/Layout/Footer/footer";
 import Header from "./components/Layout/Header/header";
 import Loading from "./components/Loadding/loading";
 import { useDispatch, useSelector } from "react-redux";
-import { checkToken } from "./features/auth/authSlice";
+import { checkToken, login } from "./features/auth/authSlice";
 import { PrivateRoutes, PrivateLogin } from "./components/privateRouter";
 import { fetchCoursesByUser } from "./features/course/courseByUserSlice";
 import SidebarAdmin from "./components/Layout/Sidebar/sidebarAdmin";
@@ -17,11 +17,15 @@ import { fetchVideo } from "./features/admin/videoSlice";
 import { fetchCourses } from "./features/admin/courseSlice";
 import Quiz from "./features/quiz/quizPage";
 import { fetchQuizz } from "./features/admin/quizzSlice";
+import { fetchUsers } from "./features/admin/adminSlice";
+import { fetchComments } from "./features/course/commentSlice";
+import SignUp from "./features/auth/Register/registerPage";
 
+const Profile = React.lazy(() => import( "./pages/Profile/profile"))
 const Lesson = React.lazy(() => import("./pages/Lesson/lesson"))
 const Quizzmanager = React.lazy(() => import("./pages/quizzmanager/quizzmanager"))
 const Login = React.lazy(() => import("./features/auth/Login/loginPage"));
-const SignUp = React.lazy(() => import("./features/auth/Register/registerPage"))
+
 const Admin = React.lazy(() => import( "./features/admin/adminPage"));
 const Coursemanager = React.lazy(() => import("./pages/coursemanager/coursemanager"));
 const UserManager = React.lazy(() => import("./pages/usermanager/usermanager"));
@@ -51,6 +55,8 @@ function App() {
     dispatch(fetchVideo());
     dispatch(fetchCourses());
     dispatch(fetchQuizz());
+    dispatch(fetchUsers());
+    dispatch(fetchComments());
   }, []);
 
   useEffect(() => {
@@ -88,6 +94,9 @@ function App() {
         </Route>
         <Route exact element={<PrivateRoutes />}>
           <Route exact path="course/:courseId/lesson/:id/quizz" element={<Quiz />} />
+        </Route>
+        <Route exact element={<PrivateRoutes />}>
+          <Route exact path="profile" element={<Profile />} />
         </Route>
         <Route exact element={<PrivateRoutes />}>
           <Route exact path="admin/coursemanager" element={<Coursemanager />} />

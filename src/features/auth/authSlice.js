@@ -11,7 +11,8 @@ const initialState = {
   roleId: null,
   firstName : null,
   lastName : null,
-  image: null
+  image: null,
+  id : null, //
 };
 
 export const getToken = () => {
@@ -55,6 +56,7 @@ export const login = createAsyncThunk(
         localStorage.setItem("name", response.data.user.firstName );
         localStorage.setItem("email", response.data.user.email );
         localStorage.setItem("avatar", response.data.user.image );
+        localStorage.setItem("id", response.data.user.id );
         toast.success("Đăng nhập thành công")
         callback(response.data.user.roleId);
         return {
@@ -105,6 +107,7 @@ const authSlice = createSlice({
         state.firstName = action.payload.user.user.firstName;
         state.lastName = action.payload.user.user.lastName; 
         state.image = action.payload.user.user.image;
+        state.id = action.payload.user.user.id;
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;

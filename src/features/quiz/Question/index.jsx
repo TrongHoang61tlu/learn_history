@@ -3,9 +3,11 @@ import Modal from "react-modal";
 import {
   Answer,
   AnswersContainer,
+  Back,
   ButtonContainer,
   ButtonExit,
   ButtonNext,
+  Image,
   QuestionContainer,
   QuestionNumber,
   QuestionText,
@@ -13,6 +15,9 @@ import {
   Scored,
 } from "./styled";
 import Congratulation from "../../../components/Confetti";
+import { FaArrowLeft} from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const customStyles = {
   content: {
@@ -34,10 +39,19 @@ const customStyles = {
 };
 
 const Question = ({ questionIndex, setQuestionIndex, questions }) => {
+  const dispatch = useDispatch()
+  const { id, courseId } = useParams();
   const currentQuestion = questions[questionIndex];
   const [score, setScore] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [showCongratulation, setShowCongratulation] = useState(false);
+  const idUser = localStorage.getItem('id');
+  const parsedUserId = parseInt(idUser);
+  const parseId = parseInt(id);
+  const parsedCourseId = parseInt(courseId);
+  
+
+
 
   const handleClick = (isCorrect) => {
     if (questionIndex < questions.length - 1) {
@@ -66,6 +80,10 @@ const Question = ({ questionIndex, setQuestionIndex, questions }) => {
     setShowCongratulation(false);
   };
 
+  const handleBack = () => {
+    window.history.back();
+  }
+
   useEffect(() => {
     if (showModal) {
       console.log("Modal is open");
@@ -75,6 +93,7 @@ const Question = ({ questionIndex, setQuestionIndex, questions }) => {
 
   return (
     <QuestionContainer>
+      <Back><FaArrowLeft onClick={handleBack} /></Back>
       <QuestionText>{currentQuestion?.question}</QuestionText>
       <AnswersContainer>
         {currentQuestion?.option1 && (
@@ -128,6 +147,7 @@ const Question = ({ questionIndex, setQuestionIndex, questions }) => {
           style={customStyles}
           contentLabel="Score Modal"
         >
+          <Image src="https://res.cloudinary.com/do688zacl/image/upload/v1687588358/jjonhpcqlkrz4a54mdzm.png" />
           <Scored>Điểm của bạn: {score}</Scored>
           <ButtonContainer>
             <ButtonExit onClick={handleModalClose}>Thoát</ButtonExit>

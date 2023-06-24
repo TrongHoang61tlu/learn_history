@@ -48,8 +48,6 @@ const schema = yup.object().shape({
   address: yup.string(),
 });
 
-// Modal.setAppElement("#root");
-
 const ModalAddUser = ({
   isOpen,
   onRequestClose,
@@ -69,6 +67,7 @@ const ModalAddUser = ({
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   function closeModal() {
     setModalAdd(false);
   }
@@ -126,6 +125,7 @@ const ModalAddUser = ({
       [name]: value,
     }));
   };
+
   useEffect(() => {
     setInitialValues(selectedUser);
   }, [selectedUser]);
@@ -148,7 +148,7 @@ const ModalAddUser = ({
       style={customStyles}
       contentLabel="Example Modal"
     >
-      <ModalTitle>Thêm mới người dùng</ModalTitle>
+      <ModalTitle>Cập nhật người dùng</ModalTitle>
       <ModalForm
         onSubmit={handleSubmit((data) => handleUpdateUser(data, formValues.id))}
       >
@@ -200,7 +200,6 @@ const ModalAddUser = ({
                     {...register("image")}
                     type="file"
                     onChange={handleImageUpload}
-                    required
                   />
                   <ModLabel htmlFor="add-image">
                     {" "}
@@ -212,7 +211,7 @@ const ModalAddUser = ({
           </ModalRight>
         </ModalControler>
         <ControlerButton>
-          <ModalButtonAccept type="submit">Thêm mới</ModalButtonAccept>
+          <ModalButtonAccept type="submit">Cập nhật</ModalButtonAccept>
         </ControlerButton>
       </ModalForm>
     </Modal>

@@ -7,7 +7,7 @@ export const PageContainer = styled.div`
   padding: 20px;
   margin: 60px 0;
   height: 100vh;
-  padding-bottom: 150px;
+  padding-bottom: 750px;
 `;
 
 export const VideoContainer = styled.div`
@@ -75,7 +75,7 @@ export const TextQuestion = styled.h2``;
 
 export const ButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: end;
 `;
 
 export const ButtonExit = styled.button`
@@ -111,4 +111,106 @@ export const ButtonNext = styled.button`
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+`;
+
+export const LogoMain = styled.img`
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+`;
+
+export const Section = styled.section``;
+
+export const Container = styled.div`
+  margin-top: 5rem;
+  padding-top: 0.2rem;
+  background-color: #ccc;
+  border-radius: 1rem;
+`;
+
+export const Card = styled.div`
+  background-color: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+`;
+
+export const CardBody = styled.div``;
+
+export const Title = styled.h6`
+font-size: 1rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 0.5rem;
+`;
+
+export const Info = styled.p`
+  font-size: 0.7rem;
+  color: #6c757d;
+  margin: 0;
+`;
+
+export const Content = styled.p`
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+
+export const ActionLink = styled.a`
+  display: flex;
+  align-items: center;
+  margin-right: 1.5rem;
+  color: #000;
+  text-decoration: none;
+
+  &:hover {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .icon {
+    margin-right: 0.5rem;
+  }
+`;
+export const Hedder = styled.div`
+  padding: 0.75rem;
+  background-color: #f8f9fa;
+`;
+
+export const Footer = styled.div`
+  background-color: #f8f9fa;
+  height: 20rem;
+  overflow-y: scroll;
+  padding: 0.75rem;
+`;
+
+export const CommentContainer = styled.div`
+  align-items: flex-start;
+  width: 100%;
+`;
+
+export const CommentTextArea = styled.textarea`
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  resize: none;
+`;
+
+export const CommentLabel = styled.label`
+  color: #000;
+`;
+
+export const CommentActions = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+  padding-top: 0.25rem;
+
+  button {
+    margin-right: 0.5rem;
+  }
 `;

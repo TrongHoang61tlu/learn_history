@@ -2,7 +2,7 @@
 
 import React from "react";
 import CourseMapLessons from "../.././components/CourseMapLessons/courseMapLessons";
-import { Info, LessonsWrapper, Wrapper } from "./style";
+import {  LessonsWrapper, Wrapper } from "./style";
 import SideBar from "../../components/Layout/Sidebar/sidebar";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -25,7 +25,6 @@ function CourseMap() {
         <LessonsWrapper>
           <CourseMapLessons title={course.title} lessons={courseContents} />
         </LessonsWrapper>
-        <Info>ahvadjavdja</Info>
       </Wrapper>
     </>
   );

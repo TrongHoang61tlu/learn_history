@@ -144,10 +144,12 @@ export const Authen = styled.div`
   display : flex;
   width : 300px;
   justify-content : space-around;
+  align-items : center;
 `
 export const Login = styled.button`
   background-color: #bed0cd;
   padding : 10px 15px;
+  height : 35px;
   color: black;
   font-size: 16px;
   border: none;
@@ -163,7 +165,8 @@ export const Login = styled.button`
 `
 
 export const Register = styled.button`
-  padding: 10px 15px;
+  padding:0 15px;
+  height: 35px;
   background-color: #ffa500;
   color: white;
   font-size: 16px;
@@ -176,4 +179,7 @@ export const Register = styled.button`
     background-color: #f57c00;
     transform: scale(1.05);
   }
+`
+export const Name = styled.p`
+  color: #fff;
 `

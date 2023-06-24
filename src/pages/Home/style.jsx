@@ -31,7 +31,7 @@ export const BannerOverlay = styled.div`
 export const BannerContent = styled.div`
   position: absolute;
   top: 30%;
-  left: 20%;
+  left: 26%;
   transform: translate(-50%, -50%);
   color: #fff;
   text-align: center;
@@ -44,7 +44,7 @@ export const BannerBottom = styled.ul`
   list-style: none;
   display: flex;
   justify-content: center;
-  top: 50%;
+  top: 45%;
   left: 48%;
   transform: translate(-50%, 80%);
   boxshadow: 2 2 20 #ccc;
@@ -93,9 +93,13 @@ export const TitleComment = styled.h2`
   display: flex;
   justify-content: center;
 `;
-export const Comments = styled.div``;
+export const Comments = styled.div`
+ justify-content : center;
+ display : flex;
+`;
 export const CommentImg = styled.img`
   margin: auto;
+  width : 100px;
 `;
 export const Comment = styled.p`
   justify-content: center;

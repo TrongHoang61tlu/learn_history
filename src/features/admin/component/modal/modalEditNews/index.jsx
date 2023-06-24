@@ -49,6 +49,7 @@ const schema = yup.object().shape({
   title: yup.string(),
   imageUrl: yup.string(),
   description: yup.string(),
+  linkUrl : yup.string(),
 });
 
 // Modal.setAppElement("#root");
@@ -169,7 +170,7 @@ const ModalEditNews = ({
               />
             </ModalContent>
             <ModalContent>
-              <ModalLabel>Mô tả</ModalLabel>
+              <ModalLabel>Đường dẫn</ModalLabel>
               <ModalInput
                 {...register("linkUrl")}
                 value={formValues?.linkUrl || ""}
@@ -190,6 +191,7 @@ const ModalEditNews = ({
                     {...register("imageUrl")}
                     onChange={handleImageUpload}
                     type="file"
+                    reset
                   />
                   <ModLabel htmlFor="add-image">
                     {" "}

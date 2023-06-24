@@ -56,7 +56,7 @@ function Coursemanager() {
 
   return (
     <Wrapper>
-      <Title>MANAGER COURSE WITH HOANGNT</Title>
+      <Title>QUẢN LÝ KHÓA HỌC</Title>
       <ButtonAdd onClick={openModalAdd}>Thêm khóa học</ButtonAdd>
       <Table>
         <thead>
@@ -76,9 +76,6 @@ function Coursemanager() {
               </TableData>
               <TableData>{course.description}</TableData>
               <TableData>
-                <ButtonView>
-                  <FaEye color="blue" />
-                </ButtonView>
                 <ButtonUpdate
                   onClick={() => {
                     setSelectedCourse(course);

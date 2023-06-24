@@ -54,17 +54,17 @@ function UserManager() {
 
   return (
     <Wrapper>
-      <Title>MANAGER USER WITH HOANGNT</Title>
+      <Title>QUẢN LÝ NGƯỜI DÙNG</Title>
       <ButtonAdd onClick={openModalAdd}>Thêm người dùng</ButtonAdd>
       <Table>
         <thead>
           <TableRow>
             <TableHeader>Email</TableHeader>
-            <TableHeader>First name</TableHeader>
-            <TableHeader>Last name</TableHeader>
-            <TableHeader>Role</TableHeader>
-            <TableHeader>Address</TableHeader>
-            <TableHeader>Action</TableHeader>
+            <TableHeader>Họ</TableHeader>
+            <TableHeader>Tên</TableHeader>
+            <TableHeader>Quyền</TableHeader>
+            <TableHeader>Địa chỉ</TableHeader>
+            <TableHeader>Hành động</TableHeader>
           </TableRow>
         </thead>
         <tbody>

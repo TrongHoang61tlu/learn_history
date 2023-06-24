@@ -84,7 +84,7 @@ function Quizzmanager() {
 
   return (
     <Wrapper>
-      <Title>MANAGER COURSE WITH HOANGNT</Title>
+      <Title>QUẢN LÝ NỘI DUNG CÂU HỎI</Title>
       <ButtonAdd onClick={openModalAdd}>Thêm câu hỏi</ButtonAdd>
       <Table>
         <thead>

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 export const QuestionContainer = styled.div`
   text-align: center;
-
   width: 750px;
+  height: 600px;
   margin: 5rem 0 15rem 0;
   background-color: whitesmoke;
   padding: 2rem;
@@ -60,11 +60,22 @@ export const QuestionNumber = styled.p`
 `;
 
 export const Scored = styled.h2`
-
+   
+  justify-content: center;
+  display: flex;
+  margin : auto;
 `
+export const Image = styled.img`
+  width: 100px;
+  justify-content: center;
+  display: flex;
+  margin : auto;
+`
+
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-around;
+  margin-top : 70px;
 `;
 
 export const ButtonExit = styled.button`
@@ -101,3 +112,9 @@ export const ButtonNext = styled.button`
   -webkit-user-select: none;
   touch-action: manipulation;
 `;
+
+export const Back = styled.div`
+  justify-content: start;
+  display: flex;
+  cursor: pointer;
+`

@@ -50,40 +50,46 @@ function SidebarAdmin() {
       <Pages>
         <PageTitle>Pages</PageTitle>
         <PageList>
-          <PageItem to="/admin/usermanager"
+        <PageItem to="/admin/dashboard"
             isActive={isActive === 0}
             onClick={() => handleItemClick(0)}
+          >
+            <Text>Thống kê</Text>
+          </PageItem>
+          <PageItem to="/admin/usermanager"
+            isActive={isActive === 1}
+            onClick={() => handleItemClick(1)}
           >
             <Text>Quản lý người dùng</Text>
           </PageItem>
           <PageItem to="/admin/coursemanager"
-            isActive={isActive === 1}
-            onClick={() => handleItemClick(1)}
+            isActive={isActive === 2}
+            onClick={() => handleItemClick(2)}
           >
             <Text>Quản lý khóa học</Text>
           </PageItem>
 
           <PageItem to="/admin/coursecontentmanager"
-            isActive={isActive === 2}
-            onClick={() => handleItemClick(2)}
+            isActive={isActive === 3}
+            onClick={() => handleItemClick(3)}
           >
             <Text>Quản lý bài học</Text>
           </PageItem>
           <PageItem to="/admin/newsmanager"
-            isActive={isActive === 3}
-            onClick={() => handleItemClick(3)}
+            isActive={isActive === 4}
+            onClick={() => handleItemClick(4)}
           >
             <Text>Quản lý tin tức </Text>
           </PageItem>
           <PageItem to="/admin/videomanager"
-            isActive={isActive === 4}
-            onClick={() => handleItemClick(4)}
+            isActive={isActive === 5}
+            onClick={() => handleItemClick(5)}
           >
             <Text>Quản lý video bài học</Text>
           </PageItem>
           <PageItem to="/admin/quizzmanager"
-            isActive={isActive === 5}
-            onClick={() => handleItemClick(5)}
+            isActive={isActive === 6}
+            onClick={() => handleItemClick(6)}
           >
             <Text>Quản lý câu hỏi </Text>
           </PageItem>

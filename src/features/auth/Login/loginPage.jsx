@@ -51,7 +51,7 @@ function Login() {
   const handleRoleRedirect = (role) => {
     if (role === "1") {
       setIsRedirecting(true);
-      redirectHome("/admin");
+      redirectHome("/admin/dashboard");
     } else if (role === "2") {
       setIsRedirecting(true);
       redirectHome("/");

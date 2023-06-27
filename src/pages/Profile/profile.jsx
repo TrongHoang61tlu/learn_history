@@ -139,21 +139,21 @@ function Profile() {
                 <Textprofile>Hồ sơ cá nhân</Textprofile>
               </Description>
               <SkillContainer>
-                <SkillBlock className="primary">
-                  <h4>90%</h4>
-                  <h6>Tổng số thời gian học</h6>
-                </SkillBlock>
                 <SkillBlock className="success">
-                  <h4>70%</h4>
+                  <h4>0</h4>
                   <h6>Tổng số khóa học đã hoàn thành</h6>
                 </SkillBlock>
                 <SkillBlock className="warning">
-                  <h4>80%</h4>
+                  <h4>1</h4>
                   <h6>Tổng số bài học đã hoàn thành</h6>
                 </SkillBlock>
                 <SkillBlock className="danger">
-                  <h4>75%</h4>
+                  <h4>900 </h4>
                   <h6>Điểm số cao nhất</h6>
+                </SkillBlock>
+                <SkillBlock className="primary">
+                  <h4>2 ngày</h4>
+                  <h6>Thâm niên</h6>
                 </SkillBlock>
               </SkillContainer>
             </div>

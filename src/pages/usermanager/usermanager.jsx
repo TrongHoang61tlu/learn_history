@@ -73,12 +73,9 @@ function UserManager() {
               <TableData>{user.email}</TableData>
               <TableData>{user?.firstName}</TableData>
               <TableData>{user.lastName}</TableData>
-              <TableData>{user.roleId === "1" ? "Admin" : "Member"}</TableData>
+              <TableData>{user.roleId === "1" ? "Quản trị viên" : "Học sinh"}</TableData>
               <TableData>{user.address}</TableData>
               <TableData>
-                <ButtonView>
-                  <FaEye color="blue" />
-                </ButtonView>
                 <ButtonUpdate
                   onClick={() => {
                     setSelectedUser(user);

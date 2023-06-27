@@ -62,7 +62,6 @@ const Lesson = () => {
     (comment) => comment.contentId === parsedContentID
   );
   const userData = user.find((user) => user.id === parsedUserId);
-  console.log(userData);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [showQuestion, setShowQuestion] = useState(false);
   const [showModal, setShowModal] = useState(false);

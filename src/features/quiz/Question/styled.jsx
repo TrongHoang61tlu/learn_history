@@ -114,7 +114,15 @@ export const ButtonNext = styled.button`
 `;
 
 export const Back = styled.div`
-  justify-content: start;
   display: flex;
   cursor: pointer;
+`
+
+export const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+export const Time = styled.p`
+  font-size: 1.5rem;
+  font-weight: bold;
 `

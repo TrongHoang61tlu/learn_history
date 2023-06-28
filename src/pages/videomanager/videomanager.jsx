@@ -59,7 +59,7 @@ function Videomanager() {
 
   return (
     <Wrapper>
-      <Title>MANAGER COURSE WITH HOANGNT</Title>
+      <Title>QUẢN LÝ NỘI DUNG BÀI HỌC</Title>
       <ButtonAdd onClick={openModalAdd}>Thêm video</ButtonAdd>
       <Table>
         <thead>

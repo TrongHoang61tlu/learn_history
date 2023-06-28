@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   margin-bottom: 200px;
   margin-top: 100px;
   margin: auto;
+  padding-bottom: 200px;
 `;
 
 export const Title = styled.h1`

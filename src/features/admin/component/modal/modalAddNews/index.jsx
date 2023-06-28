@@ -148,6 +148,7 @@ const ModalAddNews = ({ isOpen, onRequestClose, onSubmitHandler }) => {
                     id="add-image"
                     type="file"
                     onChange={handleImageUpload}
+                    reset
                     required
                   />
                   <ModLabel htmlFor="add-image">

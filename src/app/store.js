@@ -7,6 +7,8 @@ import courseByUserSlice from '../features/course/courseByUserSlice';
 import courseContentSlice from '../features/admin/course-contentSlice';
 import videoSlice from '../features/admin/videoSlice';
 import quizzSlice from '../features/admin/quizzSlice';
+import commentSlice from '../features/course/commentSlice';
+import historiesSlice from '../features/course/historiesSlice';
 
 
 export const store = configureStore({
@@ -19,6 +21,8 @@ export const store = configureStore({
     coursebyuser : courseByUserSlice,
     video : videoSlice,
     quizz : quizzSlice,
+    comment : commentSlice,
+    histories : historiesSlice,
   },
 });
 store.dispatch(checkToken());

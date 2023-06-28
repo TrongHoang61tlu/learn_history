@@ -110,10 +110,9 @@ function Courses() {
                 </svg>
               </ItemLeft>
               <ItemRight>
-                <ItemTitle>Stand out in your field</ItemTitle>
+                <ItemTitle>Phát triển tư duy phản biện</ItemTitle>
                 <ItemText>
-                  Use the knowledge and skills you have gained to drive impact
-                  at work and grow your career.
+                Học lịch sử khuyến khích tư duy phản biện, giúp chúng ta phân tích, đánh giá và suy nghĩ logic về các tình huống và sự kiện lịch sử.
                 </ItemText>
               </ItemRight>
             </CategoryItem>
@@ -136,10 +135,9 @@ function Courses() {
                 </svg>
               </ItemLeft>
               <ItemRight>
-                <ItemTitle>Stand out in your field</ItemTitle>
+                <ItemTitle>Nhận thức quyền công dân</ItemTitle>
                 <ItemText>
-                  Use the knowledge and skills you have gained to drive impact
-                  at work and grow your career.
+                Học lịch sử là cách để chúng ta hiểu về quyền và trách nhiệm của mình trong xã hội, từ đó tham gia tích cực và đóng góp vào cộng đồng.
                 </ItemText>
               </ItemRight>
             </CategoryItem>
@@ -162,10 +160,9 @@ function Courses() {
                 </svg>
               </ItemLeft>
               <ItemRight>
-                <ItemTitle>Stand out in your field</ItemTitle>
+                <ItemTitle>Khai phá lối sống và sự sáng tạo</ItemTitle>
                 <ItemText>
-                  Use the knowledge and skills you have gained to drive impact
-                  at work and grow your career.
+                Học lịch sử khơi nguồn cảm hứng và khám phá, mở ra những cánh cửa mới cho sự sáng tạo và khám phá cá nhân
                 </ItemText>
               </ItemRight>
             </CategoryItem>

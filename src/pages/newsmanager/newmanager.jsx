@@ -59,7 +59,7 @@ function NewsManager() {
 
   return (
     <Wrapper>
-      <Title>MANAGER USER WITH HOANGNT</Title>
+      <Title>QUẢN LÝ TIN TỨC</Title>
       <ButtonAdd onClick={openModalAdd}>Thêm bài viết</ButtonAdd>
       <Table>
         <thead>
@@ -79,9 +79,6 @@ function NewsManager() {
               <TableData> <Image src={news.imageUrl} alt="" /></TableData>
               <TableData>{news.description}</TableData>
               <TableData>
-                <ButtonView>
-                  <FaEye color="blue" />
-                </ButtonView>
                 <ButtonUpdate
                   onClick={() => {
                     setSelectedNews(news);

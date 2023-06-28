@@ -15,6 +15,7 @@ import {
   Email,
   Form,
 } from "./styleAdmin";
+import { FaBook, FaBookOpen, FaNewspaper, FaPalette, FaQuestion, FaUser, FaVideo, FaWarehouse } from "react-icons/fa";
 
 function SidebarAdmin() {
   const [isActive, setIsActive] = useState(0);
@@ -50,42 +51,55 @@ function SidebarAdmin() {
       <Pages>
         <PageTitle>Pages</PageTitle>
         <PageList>
-          <PageItem to="/admin/usermanager"
+        <PageItem to="/admin/dashboard"
             isActive={isActive === 0}
             onClick={() => handleItemClick(0)}
           >
-            <Text>Quản lý người dùng</Text>
+            <FaPalette color="#fff" />
+            <Text>Thống kê</Text>
           </PageItem>
-          <PageItem to="/admin/coursemanager"
+          <PageItem to="/admin/usermanager"
             isActive={isActive === 1}
             onClick={() => handleItemClick(1)}
           >
-            <Text>Quản lý khóa học</Text>
+            <FaUser color="#fff" />
+            <Text>Quản lý Người dùng</Text>
           </PageItem>
-
-          <PageItem to="/admin/coursecontentmanager"
+          <PageItem to="/admin/coursemanager"
             isActive={isActive === 2}
             onClick={() => handleItemClick(2)}
           >
-            <Text>Quản lý bài học</Text>
+            <FaBook color="#fff" />
+            <Text>Quản lý Khóa học</Text>
           </PageItem>
-          <PageItem to="/admin/newsmanager"
+
+          <PageItem to="/admin/coursecontentmanager"
             isActive={isActive === 3}
             onClick={() => handleItemClick(3)}
           >
-            <Text>Quản lý tin tức </Text>
+             <FaBookOpen color="#fff" />
+            <Text>Quản lý Bài học</Text>
           </PageItem>
-          <PageItem to="/admin/videomanager"
+          <PageItem to="/admin/newsmanager"
             isActive={isActive === 4}
             onClick={() => handleItemClick(4)}
           >
-            <Text>Quản lý video bài học</Text>
+           <FaNewspaper color="#fff" />
+            <Text>Quản lý Tin tức </Text>
           </PageItem>
-          <PageItem to="/admin/quizzmanager"
+          <PageItem to="/admin/videomanager"
             isActive={isActive === 5}
             onClick={() => handleItemClick(5)}
           >
-            <Text>Quản lý câu hỏi </Text>
+             <FaVideo color="#fff" />
+            <Text>Quản lý Video bài học</Text>
+          </PageItem>
+          <PageItem to="/admin/quizzmanager"
+            isActive={isActive === 6}
+            onClick={() => handleItemClick(6)}
+          >
+           <FaQuestion color="#fff" />
+            <Text>Quản lý Câu hỏi </Text>
           </PageItem>
         </PageList>
       </Pages>

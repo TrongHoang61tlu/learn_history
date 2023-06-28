@@ -8,6 +8,7 @@ import {
   Link,
   ListItem,
   Login,
+  Name,
   Register,
   Search,
   Wrapper,
@@ -26,7 +27,10 @@ const List = {
 function Header() {
   const [activeItem, setActiveItem] = useState("0");
   const isLogin = useSelector((state) => state.auth.isLogin);
-  const name = localStorage.getItem("name");
+  const idUser = localStorage.getItem("id");
+  const parsedUserId = parseInt(idUser);
+  const userData = useSelector((state) => state.admin.users);
+  const data = userData.find((user) => user.id === parsedUserId);
   const dispatch = useDispatch()
   const redirectHome = useNavigate();
   const handleLogout = () => {
@@ -60,7 +64,7 @@ function Header() {
         <Authen>
           {isLogin ? (
               <>
-              <p>Xin chào, {name}</p>
+              <Name>Xin chào, {data?.firstName}</Name>
               <Register onClick={handleLogout}>Đăng xuất</Register>
               </>
           ) : (

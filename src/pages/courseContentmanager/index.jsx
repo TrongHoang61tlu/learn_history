@@ -3,7 +3,6 @@ import {
   FaAngleDown,
   FaAngleUp,
   FaEdit,
-  FaEye,
   FaTrashAlt,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +10,6 @@ import {
   ButtonAdd,
   ButtonDelete,
   ButtonUpdate,
-  ButtonView,
   Table,
   TableData,
   TableHeader,
@@ -86,7 +84,7 @@ function CourseContentManager() {
 
   return (
     <Wrapper>
-      <Title>MANAGER USER WITH HOANGNT</Title>
+      <Title>QUẢN LÝ BÀI HỌC</Title>
       <ButtonAdd onClick={openModalAdd}>Thêm bài học </ButtonAdd>
       <Table>
         <thead>

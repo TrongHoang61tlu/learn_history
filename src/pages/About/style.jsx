@@ -21,12 +21,12 @@ export const Container = styled.div`
   }
 `;
 export const ContainerImg = styled.div`
-    background-image: url(https://about.udemy.com/wp-content/uploads/2021/07/about-us.png);
+    background-image: url(image/logomain.png);
     min-height: 250px;
     background-size: contain!important;
     background-position: bottom;
     width: 50%;
-    margin-left: -20px;
+    margin-left: 20px;
     background-repeat: no-repeat;
      @media (max-width: 768px) {
     width: 100%;
@@ -113,7 +113,6 @@ export const DescTitle = styled.h2`
   font-size: 2.6rem;
   font-weight: 600;
   margin: 0 0 2.2rem;
-  width: 16rem;
 `;
 
 export const DescText = styled.p`

@@ -5,8 +5,8 @@ import "./App.css";
 import Footer from "./components/Layout/Footer/footer";
 import Header from "./components/Layout/Header/header";
 import Loading from "./components/Loadding/loading";
-import { useDispatch, useSelector } from "react-redux";
-import { checkToken } from "./features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { checkToken, login } from "./features/auth/authSlice";
 import { PrivateRoutes, PrivateLogin } from "./components/privateRouter";
 import { fetchCoursesByUser } from "./features/course/courseByUserSlice";
 import SidebarAdmin from "./components/Layout/Sidebar/sidebarAdmin";
@@ -17,15 +17,18 @@ import { fetchVideo } from "./features/admin/videoSlice";
 import { fetchCourses } from "./features/admin/courseSlice";
 import Quiz from "./features/quiz/quizPage";
 import { fetchQuizz } from "./features/admin/quizzSlice";
-
+import { fetchUsers } from "./features/admin/adminSlice";
+import { fetchComments } from "./features/course/commentSlice";
+import SignUp from "./features/auth/Register/registerPage";
+import { fetchHistories } from "./features/course/historiesSlice";
+const DashBoard = React.lazy(() => import("./features/dashboard"))
+const Profile = React.lazy(() => import( "./pages/Profile/profile"))
 const Lesson = React.lazy(() => import("./pages/Lesson/lesson"))
 const Quizzmanager = React.lazy(() => import("./pages/quizzmanager/quizzmanager"))
 const Login = React.lazy(() => import("./features/auth/Login/loginPage"));
-const SignUp = React.lazy(() => import("./features/auth/Register/registerPage"))
 const Admin = React.lazy(() => import( "./features/admin/adminPage"));
 const Coursemanager = React.lazy(() => import("./pages/coursemanager/coursemanager"));
 const UserManager = React.lazy(() => import("./pages/usermanager/usermanager"));
-const LesonManager = React.lazy(() => import("./pages/Lesonmanager/lesonmanager"));
 const Notfound = React.lazy(() => import("./pages/Notfound/notfound"));
 const NewsManager = React.lazy(() => import("./pages/newsmanager/newmanager"));
 const CourseContent = React.lazy(() => import("./pages/courseContentmanager"));
@@ -51,6 +54,9 @@ function App() {
     dispatch(fetchVideo());
     dispatch(fetchCourses());
     dispatch(fetchQuizz());
+    dispatch(fetchUsers());
+    dispatch(fetchComments());
+    dispatch(fetchHistories());
   }, []);
 
   useEffect(() => {
@@ -90,13 +96,16 @@ function App() {
           <Route exact path="course/:courseId/lesson/:id/quizz" element={<Quiz />} />
         </Route>
         <Route exact element={<PrivateRoutes />}>
+          <Route exact path="profile" element={<Profile />} />
+        </Route>
+        <Route exact element={<PrivateRoutes />}>
+          <Route exact path="admin/dashboard" element={<DashBoard />} />
+        </Route>
+        <Route exact element={<PrivateRoutes />}>
           <Route exact path="admin/coursemanager" element={<Coursemanager />} />
         </Route>
         <Route exact element={<PrivateRoutes />}>
           <Route exact path="admin/usermanager" element={<UserManager />} />
-        </Route>
-        <Route exact element={<PrivateRoutes />}>
-          <Route exact path="admin/lesonmanager" element={<LesonManager />} />
         </Route>
         <Route exact element={<PrivateRoutes />}>
           <Route exact path="admin/newsmanager" element={<NewsManager />} />

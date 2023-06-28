@@ -53,7 +53,7 @@ export const PageList = styled.div`
 `;
 
 export const PageItem = styled(NavLink)`
-  display: block;
+  display: flex ;
   align-items: center;
   position: relative;
   text-decoration: none;
@@ -61,7 +61,7 @@ export const PageItem = styled(NavLink)`
   box-sizing: border-box;
   text-align: left;
   background-color: ${(props) => (props.isActive ? " rgb(31 41 57)" : "none")};
-  padding: 8px 16px 8px 56px;
+  padding: 8px 16px 8px 30px;
   font-weight: 400;
   text-decoration: none;
 `;
@@ -69,6 +69,7 @@ export const Text = styled.span`
   display: flex;
   align-items: center;
   color: white;
+  padding-left: 10px;
 `;
 
 export const Infomation = styled.div`

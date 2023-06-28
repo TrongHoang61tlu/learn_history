@@ -81,6 +81,9 @@ export const LessonIcon = styled.div`
 `;
 
 export const LessonName = styled.div`
+  
+  position: absolute;
+  padding-left: 20px;
   font-size: 16px;
   font-weight: bold;
   color: ${(props) => (props.completed ? "#fff" : "#333")};

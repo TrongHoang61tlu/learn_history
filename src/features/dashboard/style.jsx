@@ -100,6 +100,7 @@ export const RightContainer = styled.div`
   margin: auto;
   box-shadow: 0px 13px 61px -15px rgba(0, 0, 0, 0.2);
   height: 60vh;
+  overflow-y : scroll; 
 `;
 export const UserItem = styled.div`
   padding: 10px 0;

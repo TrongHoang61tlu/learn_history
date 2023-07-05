@@ -9,6 +9,7 @@ import videoSlice from '../features/admin/videoSlice';
 import quizzSlice from '../features/admin/quizzSlice';
 import commentSlice from '../features/course/commentSlice';
 import historiesSlice from '../features/course/historiesSlice';
+import searchSlice from '../features/course/searchSlice';
 
 
 export const store = configureStore({
@@ -23,6 +24,7 @@ export const store = configureStore({
     quizz : quizzSlice,
     comment : commentSlice,
     histories : historiesSlice,
+    search : searchSlice
   },
 });
 store.dispatch(checkToken());

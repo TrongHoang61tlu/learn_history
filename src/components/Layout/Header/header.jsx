@@ -2,8 +2,6 @@ import { useState } from "react";
 import {
   Authen,
   Bottom,
-  Button,
-  Input,
   Item,
   Link,
   ListItem,
@@ -11,6 +9,7 @@ import {
   Name,
   Register,
   Search,
+  StyledSelect,
   Wrapper,
 } from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,15 +30,41 @@ function Header() {
   const parsedUserId = parseInt(idUser);
   const userData = useSelector((state) => state.admin.users);
   const data = userData.find((user) => user.id === parsedUserId);
-  const dispatch = useDispatch()
+  const courseData = useSelector((state) => state.course.courses);
+  const [isClearable, setIsClearable] = useState(true);
+  const [isSearchable, setIsSearchable] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRtl, setIsRtl] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [menuTarget, setMenuTarget] = useState(null);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
   const redirectHome = useNavigate();
   const handleLogout = () => {
-    dispatch(logout( () => redirectHome("/") ))
-  }
+    dispatch(logout(() => redirectHome("/")));
+  };
 
   const handleItemClick = (key) => {
     setActiveItem(key);
   };
+
+  const handleSearchChange = (selectedOption) => {
+    setSearchValue(selectedOption?.value || "");
+    const selectedCourse = courseData.find(
+      (course) => course.title === selectedOption.value
+    );
+    if (selectedCourse) {
+      navigate(`/course/${selectedCourse.id}`);
+    }
+  };
+
+  const searchOptions = courseData.map((course) => ({
+    value: course.title,
+    label: course.title,
+  }));
 
   return (
     <Wrapper>
@@ -57,20 +82,37 @@ function Header() {
           ))}
         </ListItem>
         <Search>
-          <Input placeholder="Tìm kiếm"></Input>
-          <Button>Tìm kiếm</Button>
+          <div ref={setMenuTarget} />
+          <StyledSelect
+            menuPortalTarget={menuTarget}
+            className="basic-single"
+            classNamePrefix="select"
+            value={{ value: searchValue, label: searchValue }}
+            isDisabled={isDisabled}
+            isLoading={isLoading}
+            isClearable={isClearable}
+            isRtl={isRtl}
+            isSearchable={isSearchable}
+            name="course-search"
+            options={searchOptions}
+            onChange={handleSearchChange}
+          />
         </Search>
 
         <Authen>
           {isLogin ? (
-              <>
+            <>
               <Name>Xin chào, {data?.firstName}</Name>
               <Register onClick={handleLogout}>Đăng xuất</Register>
-              </>
+            </>
           ) : (
             <>
-              <Link to="/login"><Login>Đăng nhập</Login> </Link> 
-              <Link to="signup"><Register>Đăng ký</Register></Link>
+              <Link to="/login">
+                <Login>Đăng nhập</Login>{" "}
+              </Link>
+              <Link to="signup">
+                <Register>Đăng ký</Register>
+              </Link>
             </>
           )}
         </Authen>

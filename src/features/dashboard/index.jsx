@@ -7,6 +7,7 @@ import {
   ItemLeft,
   ItemRight,
   ListItem,
+  Main,
   Mid,
   MidLeft,
   MidRight,
@@ -28,11 +29,43 @@ import {
 } from "./style";
 import { FaBook, FaBookOpen, FaQuestionCircle, FaUsers } from "react-icons/fa";
 import { useState } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
-import dayjs from "dayjs";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+import {
+  Chart as ChartJS,
+  ArcElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line, Pie } from "react-chartjs-2";
+import dayjs from "dayjs";
+import { LineMap } from "../../pages/Lesson/style";
+
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
+    },
+    title: {
+      display: true,
+      text: "Chart.js Line Chart",
+    },
+  },
+};
+
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement
+);
 
 function DashBoard() {
   const userData = useSelector((state) => state.admin.users);
@@ -47,8 +80,8 @@ function DashBoard() {
   const contentUnsusses = contentData.length - contentSusses.length;
   const [histories, setHistories] = useState([]);
   const [activeUserId, setActiveUserId] = useState(null);
-  console.log(contentData.length);
 
+  console.log(usersInCourse);
 
   const getHistoriesByContentId = (contentId) => {
     return histories.filter((history) => history.contentID === contentId);
@@ -80,6 +113,26 @@ function DashBoard() {
         backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
         borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
         borderWidth: 1,
+      },
+    ],
+  };
+
+  const labels = histories.map((data, index) => index + 1);
+
+  const data2 = {
+    labels,
+    datasets: [
+      {
+        label: "Điểm số",
+        data: histories.map((data) => data.score),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "Thời gian",
+        data: histories.map((data) => data.learningTime),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
   };
@@ -146,11 +199,12 @@ function DashBoard() {
               ))}
             </Select>
             {usersInCourse.map((user) => (
-              <UserItem key={user.id} onClick={() => handleUserClick(user.id)}
-              active={activeUserId === user.id}
+              <UserItem
+                key={user.id}
+                onClick={() => handleUserClick(user.id)}
+                active={activeUserId === user.id}
               >
-                
-                <Avatar src={user.image}/>
+                <Avatar src={user.image} />
                 <UserName>{`${user.firstName} ${user.lastName}`}</UserName>
               </UserItem>
             ))}
@@ -159,30 +213,41 @@ function DashBoard() {
       </Mid>
       <Bottom>
         <Text>Lịch sử làm bài</Text>
-        {content.map((content) => (
-          <BottomContainer key={content.id}>
-            <Title>{content.lecture}</Title>
-            <Table>
-              <thead>      
-                <TableRow>
-                  <TableHeader>Số lần làm bài</TableHeader>
-                  <TableHeader>Điểm số</TableHeader>
-                  <TableHeader>Thời gian</TableHeader>
-                </TableRow>
-              </thead>
-              <tbody>
-                {getHistoriesByContentId(content.id).map((data,index) => (
-
-                <TableRow>
-                  <TableData>{index + 1}</TableData>
-                  <TableData>{data.score}</TableData>
-                  <TableData>{dayjs().startOf("day").second(data.learningTime).format("mm:ss")}</TableData>
-                </TableRow>
-                ))}
-              </tbody>
-            </Table>
-          </BottomContainer>
-        ))}
+        <Main>
+          <LineMap>
+            <Line options={options} data={data2} />
+          </LineMap>
+          <div>
+            {content.map((content) => (
+              <BottomContainer key={content.id}>
+                <Title>{content.lecture}</Title>
+                <Table>
+                  <thead>
+                    <TableRow>
+                      <TableHeader>Số lần làm bài</TableHeader>
+                      <TableHeader>Điểm số</TableHeader>
+                      <TableHeader>Thời gian</TableHeader>
+                    </TableRow>
+                  </thead>
+                  <tbody>
+                    {getHistoriesByContentId(content.id).map((data, index) => (
+                      <TableRow>
+                        <TableData>{index + 1}</TableData>
+                        <TableData>{data.score}</TableData>
+                        <TableData>
+                          {dayjs()
+                            .startOf("day")
+                            .second(data.learningTime)
+                            .format("mm:ss")}
+                        </TableData>
+                      </TableRow>
+                    ))}
+                  </tbody>
+                </Table>
+              </BottomContainer>
+            ))}
+          </div>
+        </Main>
       </Bottom>
     </Wrapper>
   );

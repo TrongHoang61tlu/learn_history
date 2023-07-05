@@ -1,4 +1,5 @@
 import CouresItem from "../../components/CourseItem/courseItem";
+import { selectFilteredCourses } from "../../features/admin/courseSlice";
 import {
   Banner,
   Category,
@@ -30,6 +31,7 @@ import { useSelector } from "react-redux";
 
 function Courses() {
   const coursesData = useSelector((state) => state.coursebyuser.courses);
+
   return (
     <Wrapper>
       <Banner>

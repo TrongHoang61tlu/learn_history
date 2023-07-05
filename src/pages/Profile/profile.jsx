@@ -29,6 +29,8 @@ import {
 } from "./styled";
 import { fetchUsers, updateUsers } from "../../features/admin/adminSlice";
 import { ModalLeft } from "../../features/admin/component/modal/modalEditUser/style";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -38,6 +40,16 @@ function Profile() {
   const data = userData.find((user) => user.id === parsedUserId);
   const [isLoading, setIsLoading] = useState(false);
   const [formValues, setFormValues] = useState({});
+  const couserData = useSelector((state) => state.course.courses);
+  const contentData = useSelector((state) => state.courseContent.courseContent)
+  const contentInUser = contentData.filter((content) => content.userId === parsedUserId)
+  const historiesData = useSelector((state) => state.histories.histories);
+  const historiesInUser = historiesData.filter((history) => history.userID === parsedUserId)
+  const highestScoreHistory = historiesInUser.reduce((prevHistory, currentHistory) => {
+    return currentHistory.score > prevHistory.score ? currentHistory : prevHistory;
+  }, { score: -Infinity });
+  
+  console.log(highestScoreHistory);
 
   const handleUpdateUser = async (event) => {
     event.preventDefault();
@@ -57,6 +69,7 @@ function Profile() {
       toast.error("Đã xảy ra lỗi khi cập nhật thông tin người dùng!");
     }
   };
+  console.log(data);
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
@@ -102,7 +115,7 @@ function Profile() {
       setFormValues(data);
     }
   }, [data]);
-
+  dayjs.extend(relativeTime);
   return (
     <Container>
       <ModalForm onSubmit={handleUpdateUser}>
@@ -144,15 +157,15 @@ function Profile() {
                   <h6>Tổng số khóa học đã hoàn thành</h6>
                 </SkillBlock>
                 <SkillBlock className="warning">
-                  <h4>1</h4>
+                  <h4>{contentInUser.length}</h4>
                   <h6>Tổng số bài học đã hoàn thành</h6>
                 </SkillBlock>
                 <SkillBlock className="danger">
-                  <h4>900 </h4>
+                  <h4>{highestScoreHistory.score} </h4>
                   <h6>Điểm số cao nhất</h6>
                 </SkillBlock>
                 <SkillBlock className="primary">
-                  <h4>2 ngày</h4>
+                  <h4>{dayjs(data.createdAt).fromNow()}</h4>
                   <h6>Thâm niên</h6>
                 </SkillBlock>
               </SkillContainer>

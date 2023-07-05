@@ -122,10 +122,11 @@ export const UserName = styled.p`
 `;
 export const Bottom = styled.div`
   margin: 30px 0;
-  width: 70%;
+  width: 100%;
   padding-bottom: 70px;
   box-shadow: 0px 5px 17px -3px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+
 `;
 
 export const BottomContainer = styled.div`
@@ -176,4 +177,9 @@ export const Select = styled.select`
 export const Option = styled.option`
   width: 100%;
   padding: 10px;
+`
+
+export const Main = styled.div`
+  display: flex;
+  width: 100%;
 `

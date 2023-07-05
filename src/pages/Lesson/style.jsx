@@ -15,17 +15,19 @@ export const VideoContainer = styled.div`
 `;
 export const Videotitle = styled.h1`
   font-family: "YouTube Sans", "Roboto", sans-serif;
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 2.8rem;
   font-weight: 600;
   margin: 0;
 `;
 export const Videodescription = styled.p`
   font-family: "Roboto", "Arial", sans-serif;
-  font-size: 1.4rem;
-  line-height: 2rem;
-  font-weight: 400;
-  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+  font-weight: 200;
+  color: rgb(19, 19, 19);
+  background-color :  rgba(0, 0, 0, 0.05);
+  border-radius :5px;
 `;
 export const LessonListContainer = styled.div`
   flex: 0 0 450px;
@@ -214,3 +216,7 @@ export const CommentActions = styled.div`
     margin-right: 0.5rem;
   }
 `;
+
+export const LineMap = styled.div`
+  width: 70%;
+`

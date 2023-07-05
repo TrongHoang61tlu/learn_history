@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-
+import Select from 'react-select';
 export const Wrapper = styled.section`
   width: 100%;
   position: fixed;
@@ -183,3 +183,6 @@ export const Register = styled.button`
 export const Name = styled.p`
   color: #fff;
 `
+export const StyledSelect = styled(Select)`
+  width: 100%;
+`;
